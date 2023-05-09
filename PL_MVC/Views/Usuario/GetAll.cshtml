@@ -1,0 +1,86 @@
+﻿@model ML.Usuario
+    @{ 
+        ViewBag.Title = "GetAll";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Usuarios</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-md-offset-11">
+            <button id="btnAddUsuario" class="btn-success">Agregar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <center>
+                <table class="table table-striped table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <td>Editar</td>
+                            <td class="hidden">IdUsuario</td>
+                            <td>Nombre</td>
+                            <td>Apellido Paterno</td>
+                            <td>Apellido Materno</td>
+                            <td>UserName</td>
+                            <td>Email</td>
+                            <td>Password</td>
+                            <td>Sexo</td>
+                            <td>Telefono</td>
+                            <td>Celular</td>
+                            <td>CURP</td>
+                            <td>Fecha de Nacimiento</td>
+                            <td>Id Rol</td>
+                            <td>Id Usuario Modificado</td>
+                            <td>Fecha Creacion</td>
+                            <td>Fecha Modificacion</td>
+                            <td>Imagen</td>
+                            <td>Eliminar</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.Usuario usuario in Model.Usuarios)
+                        {
+                            <tr>
+                                <td><a class="btn btn-warning glyphicon glyphicon-pencil" href="@Url.Action("Add", "Usuario", new { IdUsuario = usuario.IdUsuario })"></a></td>
+                                <td class="hidden">@usuario.IdUsuario</td>
+                                <td>@usuario.Nombre</td>
+                                <td>@usuario.ApellidoPaterno</td>
+                                <td>@usuario.ApellidoMaterno</td>
+                                <td>@usuario.UserName</td>
+                                <td>@usuario.Email</td>
+                                <td>@usuario.Password</td>
+                                <td>@usuario.Sexo</td>
+                                <td>@usuario.Telefono</td>
+                                <td>@usuario.Celular</td>
+                                <td>@usuario.CURP</td>
+                                <td>@usuario.FechaNacimiento</td>
+                                <td>@usuario.Rol.IdRol</td>
+                                <td>@usuario.IdUsuarioModificado</td>
+                                <td>@usuario.FechaCreacion</td>
+                                <td>@usuario.FechaModificacion</td>
+                                <td>@usuario.Imagen</td>
+                                <td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Usuario", new { IdUsuario= usuario.IdUsuario})" onclick="return confirm('Estas seguro que deseas eliminar el registro?' );"></a></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </center>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#btnAddUsuario').click(function() {
+    var url = '@Url.Action("Add", "Usuario")'; // La URL de la acción en tu controlador
+    window.location.href = url; // Redirige a la URL
+  });
+});
+</script>
