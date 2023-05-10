@@ -47,7 +47,7 @@
                         @foreach (ML.Usuario usuario in Model.Usuarios)
                         {
                             <tr>
-                                <td><a class="btn btn-warning glyphicon glyphicon-pencil" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario}, null)"></a></td>
+                                <td><a class="btn btn-warning glyphicon glyphicon-pencil" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario})"></a></td>
                                 <td class="hidden">@usuario.IdUsuario</td>
                                 <td>@usuario.Nombre</td>
                                 <td>@usuario.ApellidoPaterno</td>

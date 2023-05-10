@@ -632,12 +632,13 @@ namespace BL
                     usuarioDL.Telefono= usuario.Telefono;
                     usuarioDL.Celular= usuario.Celular;
                     usuarioDL.CURP = usuario.CURP;
-                    usuarioDL.IdRol = usuario.Rol.IdRol;
-                    usuarioDL.IdUsuarioModificado = usuario.IdUsuarioModificado;
+                    //usuarioDL.IdRol = usuario.Rol.IdRol;
+                    //usuarioDL.IdUsuarioModificado = usuario.IdUsuarioModificado;
                     DateTime dt = DateTime.ParseExact(usuario.FechaNacimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     usuarioDL.FechaNacimiento = dt;
                     usuarioDL.Imagen = usuario.Imagen;
-
+                    usuarioDL.FechaCreacion = DateTime.Now;
+                    usuarioDL.FechaModificacion = DateTime.Now;
                     context.Usuarios.Add(usuarioDL);
                     int rowsAffected = context.SaveChanges();
 
@@ -686,11 +687,13 @@ namespace BL
                         query.Telefono = usuario.Telefono;
                         query.Celular = usuario.Celular;
                         query.CURP = usuario.CURP;
-                        query.IdRol = usuario.Rol.IdRol;
-                        query.IdUsuarioModificado = usuario.IdUsuarioModificado;
+                       // query.IdRol = usuario.Rol.IdRol;
+                        //query.IdUsuarioModificado = usuario.IdUsuarioModificado;
                         DateTime dt = DateTime.ParseExact(usuario.FechaNacimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         query.FechaNacimiento = dt;
                         query.Imagen = usuario.Imagen;
+                        query.FechaModificacion = DateTime.Now;
+
                         int rowsAffected = context.SaveChanges();
 
                         if (rowsAffected > 0)

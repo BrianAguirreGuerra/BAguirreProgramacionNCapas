@@ -16,83 +16,77 @@
         </div>
         <hr />
     </div>
-    <div class="row">
-        <div class="col-md-3">
-            @Html.Label("Nombre")
-            @Html.TextBoxFor(usuario => Model.Nombre, new { @class = "form-control" })
+    @using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(materia => Model.IdUsuario, new { @class = "hidden" })
+                @Html.TextBoxFor(materia => Model.IdUsuario, new { @class = "form-control hidden" })
+            </div>
         </div>
-        <div class="col-md-3">
-            @Html.Label("Apellido Paterno")
-            @Html.TextBoxFor(usuario => Model.ApellidoPaterno, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("Apellido Materno")
-            @Html.TextBoxFor(usuario => Model.ApellidoMaterno, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("UserName")
-            @Html.TextBoxFor(usuario => Model.UserName, new { @class = "form-control" })
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            @Html.Label("Email")
-            @Html.TextBoxFor(usuario => Model.Email, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("Password")
-            @Html.TextBoxFor(usuario => Model.Password, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("Sexo")
-            @Html.TextBoxFor(usuario => Model.Sexo, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("Telefono")
-            @Html.TextBoxFor(usuario => Model.Telefono, new { @class = "form-control" })
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            @Html.Label("Celular")
-            @Html.TextBoxFor(usuario => Model.Celular, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("CURP")
-            @Html.TextBoxFor(usuario => Model.CURP, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("ID Rol")
-            @Html.TextBoxFor(usuario => Model.Rol.IdRol, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("ID Usuario Modificado")
-            @Html.TextBoxFor(usuario => Model.UserName, new { @class = "form-control" })
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            @Html.Label("Fecha de Nacimiento")
-            @Html.TextBoxFor(usuario => Model.FechaNacimiento, new { @class = "form-control" })
-        </div>
-        <div class="col-md-3">
-            @Html.Label("Imagen")
-            @Html.TextBoxFor(usuario => Model.Imagen, new { @class = "form-control" })
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-1">
-            @Html.ActionLink("Guardar", "Add", "Usuario", new { @class = "btn btn-success" })
-            <p></p>
-        </div>
-        <div class="col-md-1">
-            @Html.ActionLink("Cancelar", "GetAll", "Usuario", new { @class = "btn btn-danger" })
-        </div>
-    </div>
 
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Label("Nombre")
+                @Html.TextBoxFor(usuario => Model.Nombre, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Apellido Paterno")
+                @Html.TextBoxFor(usuario => Model.ApellidoPaterno, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Apellido Materno")
+                @Html.TextBoxFor(usuario => Model.ApellidoMaterno, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("UserName")
+                @Html.TextBoxFor(usuario => Model.UserName, new { @class = "form-control" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Label("Email")
+                @Html.TextBoxFor(usuario => Model.Email, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Password")
+                @Html.TextBoxFor(usuario => Model.Password, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Sexo")
+                @Html.TextBoxFor(usuario => Model.Sexo, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Telefono")
+                @Html.TextBoxFor(usuario => Model.Telefono, new { @class = "form-control" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Label("Celular")
+                @Html.TextBoxFor(usuario => Model.Celular, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("CURP")
+                @Html.TextBoxFor(usuario => Model.CURP, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Fecha de Nacimiento")
+                @Html.TextBoxFor(usuario => Model.FechaNacimiento, new { @class = "form-control" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1">
+                <input type="submit" class="btn btn-success" value="Guardar" />
+                <p></p>
+            </div>
+            <div class="col-md-1">
+                @Html.ActionLink("Cancelar", "GetAll", "Usuario", new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    }
 </div>
 
