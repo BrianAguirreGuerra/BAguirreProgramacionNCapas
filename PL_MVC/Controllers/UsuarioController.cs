@@ -1,14 +1,18 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace PL_MVC.Controllers
 {
     public class UsuarioController : Controller
     {
-        
+
+        [HttpGet]
         public ActionResult GetAll()
         {
             ML.Result result = BL.Usuario.GetAllLinq();
@@ -17,15 +21,16 @@ namespace PL_MVC.Controllers
             return View(usuario);
         }
 
-        public ActionResult Add() 
+        [HttpGet]
+        public ActionResult Form()
         {
-            return View();
+            return View(new ML.Usuario());
         }
 
-        public ActionResult Delete(int id) 
+        public void Delete(int IdUsuario) 
         {
-            ML.Result result = BL.Usuario.DeleteLinq(id);
-            return View();
+            ML.Result result = BL.Usuario.DeleteLinq(IdUsuario);
+            GetAll();
         }
                 
     }
