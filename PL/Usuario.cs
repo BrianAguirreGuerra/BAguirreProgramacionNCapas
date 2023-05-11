@@ -836,6 +836,26 @@ namespace PL
                 }
 
             }
+        public static void GetRolL()
+        {
+            Console.WriteLine("Ingrese el Id que desee visualizar");
+
+            ML.Usuario usuario = new ML.Usuario();
+            usuario.Rol = new ML.Rol();
+            usuario.Rol.IdRol = byte.Parse(Console.ReadLine());
+
+            ML.Result result = BL.Usuario.GetRolLinq(usuario.Rol.IdRol);
+
+            if (result.Correct)
+            {
+                usuario = (ML.Usuario)result.Object;
+
+                Console.WriteLine("");
+                Console.WriteLine("Nombre-------------->" + usuario.Rol.Nombre);
+
+            }
+
+        }
 
     }
 }

@@ -17,7 +17,7 @@ namespace PL_MVC.Controllers
         public ActionResult GetAll()
         {
             ML.Usuario usuario = new ML.Usuario();
-            ML.Result result = BL.Usuario.GetAllLinq();
+            ML.Result result = BL.Usuario.GetAllEF();
             if (result.Correct)
             {
                 usuario.Usuarios = result.Objects;
@@ -35,10 +35,14 @@ namespace PL_MVC.Controllers
         public ActionResult Form(int? IdUsuario)
         {
             ML.Usuario usuario = new ML.Usuario();
+            ML.Result resultRol = BL.Rol.GetAllLinQ();
+            usuario.Rol = new ML.Rol();
+            usuario.Rol.Roles = resultRol.Objects;
 
             if (IdUsuario == null) //add
             {
                 return View(usuario); //vacio
+
             }
             else // update
             {
@@ -59,6 +63,7 @@ namespace PL_MVC.Controllers
                 usuario.CURP = ((ML.Usuario)result.Object).CURP;
                 usuario.IdUsuarioModificado = ((ML.Usuario)result.Object).IdUsuarioModificado;
                 usuario.FechaNacimiento = ((ML.Usuario)result.Object).FechaNacimiento;
+                usuario.Rol.IdRol = ((ML.Usuario)result.Object).Rol.IdRol;
                 return View(usuario);
             }
 

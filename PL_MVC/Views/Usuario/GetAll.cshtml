@@ -25,17 +25,16 @@
                             <td>Editar</td>
                             <td class="hidden">IdUsuario</td>
                             <td>Nombre</td>
-                            <td>Apellido Paterno</td>
-                            <td>Apellido Materno</td>
                             <td>UserName</td>
                             <td>Email</td>
-                            <td>Password</td>
+                            <td class="hidden">Password</td>
                             <td>Sexo</td>
                             <td>Telefono</td>
                             <td>Celular</td>
                             <td>CURP</td>
                             <td>Fecha de Nacimiento</td>
-                            <td>Id Rol</td>
+                            <td class="hidden">Id Rol</td>
+                            <td>Rol</td>
                             <td>Id Usuario Modificado</td>
                             <td>Fecha Creacion</td>
                             <td>Fecha Modificacion</td>
@@ -49,18 +48,17 @@
                             <tr>
                                 <td><a class="btn btn-warning glyphicon glyphicon-pencil" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario})"></a></td>
                                 <td class="hidden">@usuario.IdUsuario</td>
-                                <td>@usuario.Nombre</td>
-                                <td>@usuario.ApellidoPaterno</td>
-                                <td>@usuario.ApellidoMaterno</td>
+                                <td>@usuario.Nombre @usuario.ApellidoPaterno @usuario.ApellidoMaterno</td>
                                 <td>@usuario.UserName</td>
                                 <td>@usuario.Email</td>
-                                <td>@usuario.Password</td>
+                                <td class="hidden">@usuario.Password</td>
                                 <td>@usuario.Sexo</td>
                                 <td>@usuario.Telefono</td>
                                 <td>@usuario.Celular</td>
                                 <td>@usuario.CURP</td>
                                 <td>@usuario.FechaNacimiento</td>
-                                <td>@usuario.Rol.IdRol</td>
+                                <td class="hidden">@usuario.Rol.IdRol</td>
+                                <td>@usuario.Rol.Nombre</td>
                                 <td>@usuario.IdUsuarioModificado</td>
                                 <td>@usuario.FechaCreacion</td>
                                 <td>@usuario.FechaModificacion</td>

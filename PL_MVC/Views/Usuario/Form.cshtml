@@ -76,17 +76,21 @@
                 @Html.Label("Fecha de Nacimiento")
                 @Html.TextBoxFor(usuario => Model.FechaNacimiento, new { @class = "form-control" })
             </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-1">
-                <input type="submit" class="btn btn-success" value="Guardar" />
-                <p></p>
+            <div class="col-md-3">
+                @Html.Label("Rol Usuario")
+                @Html.DropDownListFor(usuario => Model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Selecciona un Rol", new { @class = "form-control" })
+            <br />   
             </div>
-            <div class="col-md-1">
-                @Html.ActionLink("Cancelar", "GetAll", "Usuario", new { @class = "btn btn-danger" })
+            <div class="row">
+                <div class="col-md-1">
+                    <input type="submit" class="btn btn-success" value="Guardar" />
+                    <p></p>
+                </div>
+                <div class="col-md-1">
+                    @Html.ActionLink("Cancelar", "GetAll", "Usuario", new { @class = "btn btn-danger" })
+                </div>
             </div>
         </div>
-    }
-</div>
+            }
+        
 

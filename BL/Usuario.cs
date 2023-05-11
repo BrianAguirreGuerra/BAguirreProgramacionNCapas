@@ -516,7 +516,7 @@ namespace BL
                         {
                             ML.Usuario usuario = new ML.Usuario();
                             usuario.IdUsuario = obj.IdUsuario;
-                            usuario.Nombre = obj.Nombre;
+                            usuario.Nombre = obj.UsuarioNombre;
                             usuario.ApellidoPaterno = obj.ApellidoPaterno;
                             usuario.ApellidoMaterno = (obj.ApellidoMaterno != null) ? obj.ApellidoMaterno : "0";
                             usuario.UserName = obj.UserName;
@@ -530,6 +530,8 @@ namespace BL
                             usuario.Imagen = obj.Imagen;
                             usuario.Rol = new ML.Rol();
                             usuario.Rol.IdRol = (obj.IdRol != null) ? obj.IdRol.Value : byte.Parse("0");
+                            usuario.Rol = new ML.Rol();
+                            usuario.Rol.Nombre = (obj.RolNombre != null) ? obj.RolNombre : "0";
                             usuario.IdUsuarioModificado = (obj.IdUsuarioModificado != null) ? obj.IdUsuarioModificado.Value : int.Parse("0");
                             usuario.FechaCreacion = (obj.FechaCreacion != null) ? obj.FechaCreacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
                             usuario.FechaModificacion = (obj.FechaModificacion != null) ? obj.FechaModificacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
@@ -610,6 +612,46 @@ namespace BL
             return result;
 
         }
+        public static ML.Result GetRolEF(int IdUsuario)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
+                {
+                    var usuarios1 = context.UsuarioGetRol(IdUsuario).SingleOrDefault();
+
+                    if (usuarios1 != null)
+                    {
+                        ML.Usuario usuario = new ML.Usuario();
+                        usuario.Rol = new ML.Rol();
+                        usuario.Rol.Nombre = usuarios1;
+                        result.Object = usuario;
+
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se encontraron registros.";
+                    }
+
+
+                    result.Correct = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+
+            }
+
+            return result;
+
+        }
+
         //Entity Framework -> En Linq
         public static ML.Result AddLinq(ML.Usuario usuario)
         {
@@ -632,7 +674,7 @@ namespace BL
                     usuarioDL.Telefono= usuario.Telefono;
                     usuarioDL.Celular= usuario.Celular;
                     usuarioDL.CURP = usuario.CURP;
-                    //usuarioDL.IdRol = usuario.Rol.IdRol;
+                    usuarioDL.IdRol = usuario.Rol.IdRol;
                     //usuarioDL.IdUsuarioModificado = usuario.IdUsuarioModificado;
                     DateTime dt = DateTime.ParseExact(usuario.FechaNacimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     usuarioDL.FechaNacimiento = dt;
@@ -687,7 +729,7 @@ namespace BL
                         query.Telefono = usuario.Telefono;
                         query.Celular = usuario.Celular;
                         query.CURP = usuario.CURP;
-                       // query.IdRol = usuario.Rol.IdRol;
+                        query.IdRol = usuario.Rol.IdRol;
                         //query.IdUsuarioModificado = usuario.IdUsuarioModificado;
                         DateTime dt = DateTime.ParseExact(usuario.FechaNacimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         query.FechaNacimiento = dt;
@@ -863,6 +905,44 @@ namespace BL
             }
             return result;
         }
+        public static ML.Result GetRolLinq(int IdUsuario)
+        {
+            Result result = new Result();
+
+            try
+            {
+                using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
+                {
+                    var query = (from usuario in context.Usuarios
+                                 join rol in context.Rols
+                                 on usuario.IdRol equals rol.IdRol
+                                 where usuario.IdUsuario == IdUsuario
+                                 select new { Nombre = rol.Nombre}).SingleOrDefault();
+
+                    if (query != null)
+                    {
+                        ML.Usuario usuariolista = new ML.Usuario();
+                        usuariolista.Rol = new ML.Rol();
+                        usuariolista.Rol.Nombre = (query.Nombre != null) ? query.Nombre : "0";
+                        result.Object = usuariolista;
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se encontraron registros";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+
+
 
 
     }
