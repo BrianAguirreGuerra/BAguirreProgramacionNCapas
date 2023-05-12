@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class Rol
+    public class Departamento
     {
         public static ML.Result GetAllLinQ()
         {
@@ -16,26 +16,26 @@ namespace BL
             {
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
-                    var listRol = (from rol in context.Rols
+                    var listDepartamento = (from departamento in context.Departamentoes
                                          select new
                                          {
-                                             IdRol = rol.IdRol,
-                                             Nombre = rol.Nombre,
+                                             IdDepartamento = departamento.IdDepartamento,
+                                             Nombre = departamento.Nombre,
                                          }).ToList();
 
-                    if (listRol != null)
+                    if (listDepartamento != null)
                     {
 
-                        if (listRol.Count > 0)
+                        if (listDepartamento.Count > 0)
                         {
                             result.Objects = new List<object>();
-                            foreach (var obj in listRol)
+                            foreach (var obj in listDepartamento)
                             {
-                                ML.Rol RolItem = new ML.Rol();
-                                RolItem.IdRol = obj.IdRol;
-                                RolItem.Nombre = obj.Nombre;
+                                ML.Departamento ProveedorItem = new ML.Departamento();
+                                ProveedorItem.IdDepartamento = obj.IdDepartamento;
+                                ProveedorItem.Nombre = obj.Nombre;
 
-                                result.Objects.Add(RolItem);
+                                result.Objects.Add(ProveedorItem);
                             }
 
                             result.Correct = true;

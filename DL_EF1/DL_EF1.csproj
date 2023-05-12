@@ -77,6 +77,9 @@
     <Compile Include="ProductoGetAll_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductoGetAll_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProductoGetById_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

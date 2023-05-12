@@ -128,8 +128,12 @@ namespace BL
                             producto.Stock = obj.Stock;
                             producto.Proveedor = new ML.Proveedor();
                             producto.Proveedor.IdProveedor = obj.IdProveedor;
+                            producto.Proveedor = new ML.Proveedor();
+                            producto.Proveedor.Telefono = (obj.ProveedorTelefono != null) ? obj.ProveedorTelefono : "0";
                             producto.Departamento = new ML.Departamento();
                             producto.Departamento.IdDepartamento = obj.IdDepartamento;
+                            producto.Departamento = new ML.Departamento();
+                            producto.Departamento.Nombre = (obj.DepartamentNombre != null) ? obj.DepartamentNombre : "0";
                             producto.Descripcion = (obj.Descripcion != null) ? obj.Descripcion.ToString() : "0";
                             producto.Imagen = obj.Imagen;
                             result.Objects.Add(producto);

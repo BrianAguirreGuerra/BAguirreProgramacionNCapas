@@ -211,11 +211,6 @@ namespace DL_EF1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoAdd", nombreParameter, precioUnitarioParameter, stockParameter, idProveedorParameter, idDepartamentoParameter, descripcionParameter, imagenParameter);
         }
     
-        public virtual ObjectResult<ProductoGetAll_Result> ProductoGetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetAll_Result>("ProductoGetAll");
-        }
-    
         public virtual ObjectResult<ProductoGetById_Result> ProductoGetById(Nullable<int> idProducto)
         {
             var idProductoParameter = idProducto.HasValue ?
@@ -283,6 +278,11 @@ namespace DL_EF1
         public virtual ObjectResult<UsuarioGetAll_Result1> UsuarioGetAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetAll_Result1>("UsuarioGetAll");
+        }
+    
+        public virtual ObjectResult<ProductoGetAll_Result1> ProductoGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetAll_Result1>("ProductoGetAll");
         }
     }
 }

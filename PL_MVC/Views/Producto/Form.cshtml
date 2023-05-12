@@ -1,0 +1,67 @@
+﻿@model ML.Producto 
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Usuarios</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Ingrese los datos del Usuario</h5>
+        </div>
+        <hr />
+    </div>
+    @using (Html.BeginForm("Form", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(producto => Model.IdProducto, new { @class = "hidden" })
+                @Html.TextBoxFor(producto => Model.IdProducto, new { @class = "form-control hidden" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Label("Nombre")
+                @Html.TextBoxFor(producto => Model.Nombre, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Precio Unitario")
+                @Html.TextBoxFor(producto => Model.PrecioUnitario, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Stock")
+                @Html.TextBoxFor(producto => Model.Stock, new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Telefono Proveedor")
+                @Html.DropDownListFor(producto => Model.Proveedor.IdProveedor, new SelectList(Model.Proveedor.Proveedores, "IdProveedor", "Telefono"), "Selecciona un Telefono", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-3">
+                @Html.Label("Departamento")
+                @Html.DropDownListFor(producto => Model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un Departamento", new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Descripcion")
+                @Html.TextBoxFor(producto => Model.Descripcion, new { @class = "form-control" })
+                <br />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <input type="submit" class="btn btn-success" value="Guardar" />
+                <p></p>
+            </div>
+            <div class="col-md-1">
+                @Html.ActionLink("Cancelar", "GetAll", "Producto", new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    }
+</div>
+    

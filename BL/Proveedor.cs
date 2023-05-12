@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class Rol
+    public class Proveedor
     {
         public static ML.Result GetAllLinQ()
         {
@@ -16,26 +16,26 @@ namespace BL
             {
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
-                    var listRol = (from rol in context.Rols
-                                         select new
-                                         {
-                                             IdRol = rol.IdRol,
-                                             Nombre = rol.Nombre,
-                                         }).ToList();
+                    var listProveedor = (from proveedor in context.Proveedors
+                                   select new
+                                   {
+                                       IdProveedor = proveedor.IdProveedor,
+                                       Telefono = proveedor.Telefono,
+                                   }).ToList();
 
-                    if (listRol != null)
+                    if (listProveedor != null)
                     {
 
-                        if (listRol.Count > 0)
+                        if (listProveedor.Count > 0)
                         {
                             result.Objects = new List<object>();
-                            foreach (var obj in listRol)
+                            foreach (var obj in listProveedor)
                             {
-                                ML.Rol RolItem = new ML.Rol();
-                                RolItem.IdRol = obj.IdRol;
-                                RolItem.Nombre = obj.Nombre;
+                                ML.Proveedor ProveedorItem = new ML.Proveedor();
+                                ProveedorItem.IdProveedor = obj.IdProveedor;
+                                ProveedorItem.Telefono = obj.Telefono;
 
-                                result.Objects.Add(RolItem);
+                                result.Objects.Add(ProveedorItem);
                             }
 
                             result.Correct = true;

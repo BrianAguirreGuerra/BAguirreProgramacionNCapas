@@ -20,8 +20,8 @@
     {
         <div class="row">
             <div class="col-md-6">
-                @Html.LabelFor(materia => Model.IdUsuario, new { @class = "hidden" })
-                @Html.TextBoxFor(materia => Model.IdUsuario, new { @class = "form-control hidden" })
+                @Html.LabelFor(usuario => Model.IdUsuario, new { @class = "hidden" })
+                @Html.TextBoxFor(usuario => Model.IdUsuario, new { @class = "form-control hidden" })
             </div>
         </div>
 
@@ -79,8 +79,9 @@
             <div class="col-md-3">
                 @Html.Label("Rol Usuario")
                 @Html.DropDownListFor(usuario => Model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Selecciona un Rol", new { @class = "form-control" })
-            <br />   
+                <br />
             </div>
+        </div>
             <div class="row">
                 <div class="col-md-1">
                     <input type="submit" class="btn btn-success" value="Guardar" />
@@ -90,7 +91,7 @@
                     @Html.ActionLink("Cancelar", "GetAll", "Usuario", new { @class = "btn btn-danger" })
                 </div>
             </div>
-        </div>
+            
             }
-        
+        </div>
 
