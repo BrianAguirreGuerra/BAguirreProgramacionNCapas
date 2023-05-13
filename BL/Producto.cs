@@ -111,9 +111,7 @@ namespace BL
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
 
-                    var productolista = context.ProductoGetAll().ToList();
-
-                    
+                    var productolista = context.ProductoGetAll().ToList();                    
 
                     if (productolista != null)
                     {
@@ -129,13 +127,26 @@ namespace BL
                             producto.Proveedor = new ML.Proveedor();
                             producto.Proveedor.IdProveedor = obj.IdProveedor;
                             producto.Proveedor = new ML.Proveedor();
-                            producto.Proveedor.Telefono = (obj.ProveedorTelefono != null) ? obj.ProveedorTelefono : "0";
+                            producto.Proveedor.Nombre = (obj.NombreProveedor != null) ? obj.NombreProveedor : "0";
                             producto.Departamento = new ML.Departamento();
-                            producto.Departamento.IdDepartamento = obj.IdDepartamento;
+                            int IdDepartamento = producto.Departamento.IdDepartamento = obj.IdDepartamento;                        
                             producto.Departamento = new ML.Departamento();
                             producto.Departamento.Nombre = (obj.DepartamentNombre != null) ? obj.DepartamentNombre : "0";
                             producto.Descripcion = (obj.Descripcion != null) ? obj.Descripcion.ToString() : "0";
                             producto.Imagen = obj.Imagen;
+                            //var Arealista = context.GetByIdArea(IdDepartamento).SingleOrDefault();
+                            //    if (Arealista != null)
+                            //    {
+                            //            producto.Departamento.Area.IdArea = Arealista.IdArea.Value;
+                            //            producto.Departamento.Area.Nombre = Arealista.Nombre;
+                            //            result.Objects.Add(producto);
+                            //        result.Correct = true;
+                            //    }
+                            //    else
+                            //    {
+                            //        result.Correct = false;
+                            //        result.ErrorMessage = "No se encontraron registros.";
+                            //    }
                             result.Objects.Add(producto);
                         }
 

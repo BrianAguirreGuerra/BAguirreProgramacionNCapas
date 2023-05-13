@@ -39,6 +39,7 @@
           </Key>
           <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -129,6 +130,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetByIdArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdArea" Type="int" Mode="In" />
+        </Function>
         <Function Name="ProductoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="PrecioUnitario" Type="decimal" Mode="In" />
@@ -382,7 +386,10 @@
           <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(BAguirreProgramacionNCapasModel.UsuarioGetAll_Result1)" />
-          <FunctionImport Name="ProductoGetAll" ReturnType="Collection(BAguirreProgramacionNCapasModel.ProductoGetAll_Result1)" />
+          <FunctionImport Name="ProductoGetAll" ReturnType="Collection(BAguirreProgramacionNCapasModel.ProductoGetAll_Result2)" />
+          <FunctionImport Name="GetByIdArea" ReturnType="Collection(BAguirreProgramacionNCapasModel.GetByIdArea_Result1)">
+            <Parameter Name="IdArea" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="UsuarioGetAll_Result">
           <Property Type="Int32" Name="IdUsuario" Nullable="false" />
@@ -462,6 +469,7 @@
           <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Productoes" Relationship="BAguirreProgramacionNCapasModel.FK__Producto__IdProv__656C112C" FromRole="Proveedor" ToRole="Producto" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Departame__IdAre__5CD6CB2B">
           <End Type="BAguirreProgramacionNCapasModel.Area" Role="Area" Multiplicity="0..1" />
@@ -571,6 +579,30 @@
           <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="500" />
           <Property Type="Binary" Name="Imagen" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="GetByIdArea_Result">
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="IdArea" Nullable="true" />
+          <Property Type="String" Name="Nombre1" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ProductoGetAll_Result2">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="PrecioUnitario" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="Stock" Nullable="false" />
+          <Property Type="Int32" Name="IdProveedor" Nullable="false" />
+          <Property Type="String" Name="NombreProveedor" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="String" Name="DepartamentNombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="Imagen" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetByIdArea_Result1">
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="IdArea" Nullable="true" />
+          <Property Type="String" Name="Nombre1" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -668,6 +700,7 @@
           <EntitySetMapping Name="Proveedors">
             <EntityTypeMapping TypeName="BAguirreProgramacionNCapasModel.Proveedor">
               <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
               </MappingFragment>
@@ -717,17 +750,27 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ProductoGetAll" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoGetAll">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.ProductoGetAll_Result1">
+              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.ProductoGetAll_Result2">
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
                 <ScalarProperty Name="Stock" ColumnName="Stock" />
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
-                <ScalarProperty Name="ProveedorTelefono" ColumnName="ProveedorTelefono" />
+                <ScalarProperty Name="NombreProveedor" ColumnName="NombreProveedor" />
                 <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
                 <ScalarProperty Name="DepartamentNombre" ColumnName="DepartamentNombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetByIdArea" FunctionName="BAguirreProgramacionNCapasModel.Store.GetByIdArea">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.GetByIdArea_Result1">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+                <ScalarProperty Name="Nombre1" ColumnName="Nombre1" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

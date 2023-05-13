@@ -44,7 +44,7 @@ namespace BL
                         else
                         {
                             result.Correct = false;
-                            result.ErrorMessage = "La tabla Rol no tiene registros";
+                            result.ErrorMessage = "La tabla Departamento no tiene registros";
                         }
                     }
                 }

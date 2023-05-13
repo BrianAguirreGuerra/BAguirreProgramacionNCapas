@@ -1,8 +1,11 @@
-﻿@model ML.Producto 
+﻿@model ML.Producto
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -27,25 +30,34 @@
             <div class="col-md-3">
                 @Html.Label("Nombre")
                 @Html.TextBoxFor(producto => Model.Nombre, new { @class = "form-control" })
+                <br />
             </div>
             <div class="col-md-3">
                 @Html.Label("Precio Unitario")
                 @Html.TextBoxFor(producto => Model.PrecioUnitario, new { @class = "form-control" })
+                <br />
             </div>
             <div class="col-md-3">
                 @Html.Label("Stock")
                 @Html.TextBoxFor(producto => Model.Stock, new { @class = "form-control" })
+                <br />
             </div>
             <div class="col-md-3">
-                @Html.Label("Telefono Proveedor")
-                @Html.DropDownListFor(producto => Model.Proveedor.IdProveedor, new SelectList(Model.Proveedor.Proveedores, "IdProveedor", "Telefono"), "Selecciona un Telefono", new { @class = "form-control" })
+                @Html.Label("Proveedor")
+                @Html.DropDownListFor(producto => Model.Proveedor.IdProveedor, new SelectList(Model.Proveedor.Proveedores, "IdProveedor", "Nombre"), "Selecciona un proveedor", new { @class = "form-control" })
+                <br />
             </div>
         </div>
         <div class="row">
-
+            <div class="col-md-3">
+                @Html.Label("Area")
+                @Html.DropDownListFor(producto => Model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una Area", new { @id = "Area", @class = "form-control" })
+  
+            </div>
             <div class="col-md-3">
                 @Html.Label("Departamento")
-                @Html.DropDownListFor(producto => Model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un Departamento", new { @class = "form-control" })
+                <select id="Departamento" name="Departamento" class="form-control"></select>
+                @*@Html.DropDownListFor(producto => Model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un Departamento", new { @class = "form-control" })*@
             </div>
             <div class="col-md-3">
                 @Html.Label("Descripcion")
@@ -63,5 +75,15 @@
             </div>
         </div>
     }
+
+<script>
+    var Area = document.getElementById("Area");
+    Area.addEventListener("change", Refresh);
+    Refresh();
+
+    function Refresh() {
+        fetch("@Url.Content("~/Producto/Departamento")" + "?IdArea=" + Area.value)
+    }
+</script>
 </div>
-    
+

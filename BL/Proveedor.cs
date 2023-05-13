@@ -20,7 +20,7 @@ namespace BL
                                    select new
                                    {
                                        IdProveedor = proveedor.IdProveedor,
-                                       Telefono = proveedor.Telefono,
+                                       Nombre = proveedor.Nombre,
                                    }).ToList();
 
                     if (listProveedor != null)
@@ -33,7 +33,7 @@ namespace BL
                             {
                                 ML.Proveedor ProveedorItem = new ML.Proveedor();
                                 ProveedorItem.IdProveedor = obj.IdProveedor;
-                                ProveedorItem.Telefono = obj.Telefono;
+                                ProveedorItem.Nombre = obj.Nombre;
 
                                 result.Objects.Add(ProveedorItem);
                             }
@@ -44,7 +44,7 @@ namespace BL
                         else
                         {
                             result.Correct = false;
-                            result.ErrorMessage = "La tabla Rol no tiene registros";
+                            result.ErrorMessage = "La tabla Proveedor no tiene registros";
                         }
                     }
                 }

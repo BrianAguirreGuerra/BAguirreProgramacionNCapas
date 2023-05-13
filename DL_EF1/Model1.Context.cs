@@ -280,9 +280,18 @@ namespace DL_EF1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetAll_Result1>("UsuarioGetAll");
         }
     
-        public virtual ObjectResult<ProductoGetAll_Result1> ProductoGetAll()
+        public virtual ObjectResult<ProductoGetAll_Result2> ProductoGetAll()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetAll_Result1>("ProductoGetAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetAll_Result2>("ProductoGetAll");
+        }
+    
+        public virtual ObjectResult<GetByIdArea_Result1> GetByIdArea(Nullable<int> idArea)
+        {
+            var idAreaParameter = idArea.HasValue ?
+                new ObjectParameter("IdArea", idArea) :
+                new ObjectParameter("IdArea", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetByIdArea_Result1>("GetByIdArea", idAreaParameter);
         }
     }
 }
