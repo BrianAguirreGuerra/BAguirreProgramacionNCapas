@@ -129,24 +129,13 @@ namespace BL
                             producto.Proveedor = new ML.Proveedor();
                             producto.Proveedor.Nombre = (obj.NombreProveedor != null) ? obj.NombreProveedor : "0";
                             producto.Departamento = new ML.Departamento();
-                            int IdDepartamento = producto.Departamento.IdDepartamento = obj.IdDepartamento;                        
+                            producto.Departamento.IdDepartamento = obj.IdDepartamento;                        
                             producto.Departamento = new ML.Departamento();
                             producto.Departamento.Nombre = (obj.DepartamentNombre != null) ? obj.DepartamentNombre : "0";
                             producto.Descripcion = (obj.Descripcion != null) ? obj.Descripcion.ToString() : "0";
+                            producto.Departamento.Area = new ML.Area();
+                            producto.Departamento.Area.Nombre = (obj.NombreArea != null) ? obj.NombreArea : "0";
                             producto.Imagen = obj.Imagen;
-                            //var Arealista = context.GetByIdArea(IdDepartamento).SingleOrDefault();
-                            //    if (Arealista != null)
-                            //    {
-                            //            producto.Departamento.Area.IdArea = Arealista.IdArea.Value;
-                            //            producto.Departamento.Area.Nombre = Arealista.Nombre;
-                            //            result.Objects.Add(producto);
-                            //        result.Correct = true;
-                            //    }
-                            //    else
-                            //    {
-                            //        result.Correct = false;
-                            //        result.ErrorMessage = "No se encontraron registros.";
-                            //    }
                             result.Objects.Add(producto);
                         }
 
@@ -401,8 +390,10 @@ namespace BL
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
                     var query = (from producto in context.Productoes
+                                 join departamento in context.Departamentoes on producto.IdDepartamento equals departamento.IdDepartamento
+                                 join area in context.Areas on departamento.IdArea equals area.IdArea
                                  where producto.IdProducto == IdProducto
-                                 select new { IdProducto = producto.IdProducto, Nombre = producto.Nombre, PrecioUnitario = producto.PrecioUnitario, Stock = producto.Stock, IdProveedor = producto.IdProveedor, IdDepartamento = producto.IdDepartamento, Descripcion = producto.Descripcion, Imagen = producto.Imagen }).SingleOrDefault();
+                                 select new { IdProducto = producto.IdProducto, Nombre = producto.Nombre, PrecioUnitario = producto.PrecioUnitario, Stock = producto.Stock, IdProveedor = producto.IdProveedor, IdDepartamento = producto.IdDepartamento, Descripcion = producto.Descripcion, Imagen = producto.Imagen, IdArea = departamento.IdArea }).SingleOrDefault();
 
                     if (query != null)
                     {
@@ -417,7 +408,10 @@ namespace BL
                             producto2.Departamento.IdDepartamento = query.IdDepartamento;
                             producto2.Descripcion = query.Descripcion;
                             producto2.Imagen = query.Imagen;
+                            producto2.Departamento.Area = new ML.Area();
+                            producto2.Departamento.Area.IdArea = query.IdArea.Value;
 
+                        
                             result.Object = producto2;
                         result.Correct = true;
                     }

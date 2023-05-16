@@ -18,6 +18,7 @@ namespace DL_EF1
         public Usuario()
         {
             this.Usuario1 = new HashSet<Usuario>();
+            this.Direccions = new HashSet<Direccion>();
         }
     
         public int IdUsuario { get; set; }
@@ -42,5 +43,7 @@ namespace DL_EF1
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario1 { get; set; }
         public virtual Usuario Usuario2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Direccion> Direccions { get; set; }
     }
 }

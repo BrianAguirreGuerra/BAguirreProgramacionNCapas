@@ -52,7 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Area.cs" />
+    <Compile Include="Colonia.cs" />
     <Compile Include="Departamento.cs" />
+    <Compile Include="Direccion.cs" />
+    <Compile Include="Estado.cs" />
+    <Compile Include="Municipio.cs" />
+    <Compile Include="Pais.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="Rol.cs" />

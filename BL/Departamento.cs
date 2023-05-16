@@ -57,5 +57,46 @@ namespace BL
             return result;
 
         }
+
+        public static ML.Result GetByIdArea(int IdArea)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
+                {
+                    var query = context.GetByIdArea(IdArea).ToList();
+
+                    if (query != null)
+                    {
+                        result.Objects = new List<object>();
+
+                        foreach (var obj in query)
+                        {
+                            ML.Departamento producto = new ML.Departamento();
+                            producto.IdDepartamento = obj.IdDepartamento;
+                            producto.Area = new ML.Area();
+                            producto.Area.IdArea = obj.IdArea.Value;
+                            producto.Area.Nombre = obj.NombreArea;
+                            producto.Nombre = obj.NombreDepartamento;
+                            result.Objects.Add(producto);
+                        }
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se encontraron registros.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+
+            }
+            return result;
+        }
     }
 }

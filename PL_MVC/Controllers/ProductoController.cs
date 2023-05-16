@@ -37,7 +37,7 @@ namespace PL_MVC.Controllers
             ML.Result resultArea = BL.Area.GetAllLinQ();
             producto.Departamento.Area = new ML.Area();
             producto.Departamento.Area.Areas = resultArea.Objects;
-            //ML.Result resultDepartamento = BL.Departamento.GetAllLinQ();
+            ML.Result resultDepartamento = BL.Departamento.GetAllLinQ();
             //producto.Departamento.Departamentos = resultDepartamento.Objects;
 
             if (IdProducto == null) //add
@@ -58,8 +58,14 @@ namespace PL_MVC.Controllers
                 producto.Proveedor.IdProveedor = ((ML.Producto)result.Object).Proveedor.IdProveedor;
                 producto.Departamento.IdDepartamento = ((ML.Producto)result.Object).Departamento.IdDepartamento;
                 producto.Descripcion = ((ML.Producto)result.Object).Descripcion;
-          //      producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
+                //producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
+                
+                int IdArea = producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
+                producto.Departamento.Area.Areas = resultArea.Objects;
+                result = BL.Departamento.GetByIdArea(IdArea);
+                producto.Departamento.Departamentos = result.Objects;
 
+                //BL.Departamento.GetByIdArea //lista
                 return View(producto);
             }
 
@@ -118,34 +124,19 @@ namespace PL_MVC.Controllers
         }
 
         public ActionResult GetByIdArea(int IdArea) {
-            ML.Result result = BL.Area.GetByIdArea(IdArea);
+            ML.Result result = BL.Departamento.GetByIdArea(IdArea);
             ML.Producto producto = new ML.Producto();
             producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
             return ViewBag.IdDepartamento(producto);
         }
 
-        [HttpGet]
-        public JsonResult Departamento(int IdArea)
+        public JsonResult GetDepartamento(int IdArea)
         {
-            ML.Producto producto = new ML.Producto();
-            ML.Result result = BL.Area.GetByIdArea(IdArea);
-            producto.Departamento.IdDepartamento = ((ML.Producto)result.Object).Departamento.IdDepartamento;
-            producto.Departamento.Nombre = ((ML.Producto)result.Object).Departamento.Nombre;
-            return Json(producto, JsonRequestBehavior.AllowGet);
+            //BL- > Grupos de determinado plantel 
+            ML.Result resultDepartamentos = BL.Departamento.GetByIdArea(IdArea);
+            //crear un nuevo stored GrupoGetByIdPlantel -> DepartamentoGetByIdArea
+            return Json(resultDepartamentos.Objects);
         }
-        //public ActionResult GetByIdArea()
-        //{
 
-        //    List<SelectListItem> stateNames = new List<SelectListItem>();
-        //    StudentModel stuModel = new StudentModel();
-
-        //    List<StateMaster> states = schoolEntity.StateMasters.ToList();
-        //    states.ForEach(x =>
-        //    {
-        //        stateNames.Add(new SelectListItem { Text = x.StateName, Value = x.StateId.ToString() });
-        //    });
-        //    stuModel.StateNames = stateNames;
-        //    return View(stuModel);
-        //}
     }
 }

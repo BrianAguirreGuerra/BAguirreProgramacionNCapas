@@ -33,6 +33,11 @@ namespace DL_EF1
         public virtual DbSet<Departamento> Departamentoes { get; set; }
         public virtual DbSet<Producto> Productoes { get; set; }
         public virtual DbSet<Proveedor> Proveedors { get; set; }
+        public virtual DbSet<Colonia> Colonias { get; set; }
+        public virtual DbSet<Direccion> Direccions { get; set; }
+        public virtual DbSet<Estado> Estadoes { get; set; }
+        public virtual DbSet<Municipio> Municipios { get; set; }
+        public virtual DbSet<Pai> Pais { get; set; }
     
         public virtual int UsuarioAdd(string nombre, string apellidoPaterno, string apellidoMaterno, string userName, string email, string pass, string sexo, string telefono, string celular, string curp, Nullable<byte> idRol, Nullable<int> idUsuarioModificado, Nullable<System.DateTime> fechaNacimiento, byte[] imagen)
         {
@@ -211,15 +216,6 @@ namespace DL_EF1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoAdd", nombreParameter, precioUnitarioParameter, stockParameter, idProveedorParameter, idDepartamentoParameter, descripcionParameter, imagenParameter);
         }
     
-        public virtual ObjectResult<ProductoGetById_Result> ProductoGetById(Nullable<int> idProducto)
-        {
-            var idProductoParameter = idProducto.HasValue ?
-                new ObjectParameter("IdProducto", idProducto) :
-                new ObjectParameter("IdProducto", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetById_Result>("ProductoGetById", idProductoParameter);
-        }
-    
         public virtual int ProductoUpdate(string nombre, Nullable<decimal> precioUnitario, Nullable<int> stock, Nullable<int> idProveedor, Nullable<int> idDepartamento, string descripcion, byte[] imagen, Nullable<int> idProducto)
         {
             var nombreParameter = nombre != null ?
@@ -280,18 +276,54 @@ namespace DL_EF1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetAll_Result1>("UsuarioGetAll");
         }
     
-        public virtual ObjectResult<ProductoGetAll_Result2> ProductoGetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetAll_Result2>("ProductoGetAll");
-        }
-    
-        public virtual ObjectResult<GetByIdArea_Result1> GetByIdArea(Nullable<int> idArea)
+        public virtual ObjectResult<GetByIdArea_Result3> GetByIdArea(Nullable<int> idArea)
         {
             var idAreaParameter = idArea.HasValue ?
                 new ObjectParameter("IdArea", idArea) :
                 new ObjectParameter("IdArea", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetByIdArea_Result1>("GetByIdArea", idAreaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetByIdArea_Result3>("GetByIdArea", idAreaParameter);
+        }
+    
+        public virtual ObjectResult<ColoniaGetByIdMunicipio_Result> ColoniaGetByIdMunicipio(Nullable<int> idMunicipio)
+        {
+            var idMunicipioParameter = idMunicipio.HasValue ?
+                new ObjectParameter("IdMunicipio", idMunicipio) :
+                new ObjectParameter("IdMunicipio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ColoniaGetByIdMunicipio_Result>("ColoniaGetByIdMunicipio", idMunicipioParameter);
+        }
+    
+        public virtual ObjectResult<EstadoGetByIdPais_Result> EstadoGetByIdPais(Nullable<int> idPais)
+        {
+            var idPaisParameter = idPais.HasValue ?
+                new ObjectParameter("IdPais", idPais) :
+                new ObjectParameter("IdPais", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EstadoGetByIdPais_Result>("EstadoGetByIdPais", idPaisParameter);
+        }
+    
+        public virtual ObjectResult<MunicipioGetByIdEstado_Result> MunicipioGetByIdEstado(Nullable<int> idEstado)
+        {
+            var idEstadoParameter = idEstado.HasValue ?
+                new ObjectParameter("IdEstado", idEstado) :
+                new ObjectParameter("IdEstado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MunicipioGetByIdEstado_Result>("MunicipioGetByIdEstado", idEstadoParameter);
+        }
+    
+        public virtual ObjectResult<ProductoGetAll_Result3> ProductoGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetAll_Result3>("ProductoGetAll");
+        }
+    
+        public virtual ObjectResult<ProductoGetById_Result1> ProductoGetById(Nullable<int> idProducto)
+        {
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("IdProducto", idProducto) :
+                new ObjectParameter("IdProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetById_Result1>("ProductoGetById", idProductoParameter);
         }
     }
 }

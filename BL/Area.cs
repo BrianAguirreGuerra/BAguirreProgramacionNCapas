@@ -58,40 +58,5 @@ namespace BL
 
         }
 
-        public static ML.Result GetByIdArea(int IdArea)
-        {
-            ML.Result result = new ML.Result();
-            try
-            {
-                using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
-                {
-                    var query = context.GetByIdArea(IdArea).ToList();
-
-                    if (query != null)
-                    {
-                        foreach (var obj in query)
-                        {
-                            ML.Producto producto = new ML.Producto();
-                            producto.Departamento.IdDepartamento = obj.IdDepartamento;
-                            producto.Departamento.Nombre = obj.Nombre;
-                            result.Objects.Add(producto);
-                        }
-                        result.Correct = true;
-                    }
-                    else
-                    {
-                        result.Correct = false;
-                        result.ErrorMessage = "No se encontraron registros.";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Correct = false;
-                result.ErrorMessage = ex.Message;
-
-            }
-            return result;
-        }
     }
 }

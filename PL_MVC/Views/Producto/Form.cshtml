@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 
 <div class="container">
     <div class="row">
@@ -51,13 +51,19 @@
         <div class="row">
             <div class="col-md-3">
                 @Html.Label("Area")
-                @Html.DropDownListFor(producto => Model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una Area", new { @id = "Area", @class = "form-control" })
-  
+                @Html.DropDownListFor(producto => Model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una Area", new { @id = "ddlArea", @class = "form-control" })
+
             </div>
             <div class="col-md-3">
                 @Html.Label("Departamento")
-                <select id="Departamento" name="Departamento" class="form-control"></select>
-                @*@Html.DropDownListFor(producto => Model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un Departamento", new { @class = "form-control" })*@
+                @if (Model.Departamento.Departamentos != null)
+                {
+                    @Html.DropDownListFor(producto => Model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un Departamento", new { @class = "form-control", @id = "ddlDepartamento" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(producto => Model.Departamento.IdDepartamento, new SelectList(string.Empty, "IdDepartamento", "Nombre"), "Selecciona un Departamento", htmlAttributes: new { @class = "form-control", @id = "ddlDepartamento" })
+                }
             </div>
             <div class="col-md-3">
                 @Html.Label("Descripcion")
@@ -76,14 +82,31 @@
         </div>
     }
 
-<script>
-    var Area = document.getElementById("Area");
-    Area.addEventListener("change", Refresh);
-    Refresh();
 
-    function Refresh() {
-        fetch("@Url.Content("~/Producto/Departamento")" + "?IdArea=" + Area.value)
-    }
-</script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#ddlArea").change(function () {
+            $("#ddlDepartamento").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDepartamento")',
+                dataType: 'json',
+                data: { IdArea: $("#ddlArea").val() },
+                success: function (departamentos) {
+                    $("#ddlDepartamento").append('<option value="0">' + 'Seleccione un Departamento' + '</option>');
+                    $.each(departamentos, function (i, departamentos) {
+                        $("#ddlDepartamento").append('<option value="'
+                            + departamentos.IdDepartamento + '">'
+                            + departamentos.Nombre + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+        });
+    });
+    </script>
 </div>
 
