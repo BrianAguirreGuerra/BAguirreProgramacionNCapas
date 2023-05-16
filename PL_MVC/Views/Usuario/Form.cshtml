@@ -82,16 +82,45 @@
                 <br />
             </div>
         </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <input type="submit" class="btn btn-success" value="Guardar" />
-                    <p></p>
-                </div>
-                <div class="col-md-1">
-                    @Html.ActionLink("Cancelar", "GetAll", "Usuario", new { @class = "btn btn-danger" })
-                </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Label("Pais")
+                @*@Html.DropDownListFor(producto => Model.Direccion.Colonia.Municipio.Estado.Pais.IdPais, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Pais.Paises, "IdPais", "Nombre"), "Selecciona un Pais", new { @id = "ddlPais", @class = "form-control" })*@
+
             </div>
-            
-            }
+            <div class="col-md-3">
+                @Html.Label("Estado")
+                @*@if (Model.Direccion.Colonia.Municipio.Estado.Estados != null)
+                {
+                   // @Html.DropDownListFor(producto => Model.Direccion.Colonia.Municipio.Estado.IdEstado, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Estados, "IdEstado", "Nombre"), "Selecciona un Estado", new { @class = "form-control", @id = "ddlEstado" })
+                }
+                else
+                {*@
+                    @Html.DropDownListFor(producto => Model.Direccion.Colonia.Municipio.Estado.IdEstado, new SelectList(string.Empty, "IdEstado", "Nombre"), "Selecciona un Estado", htmlAttributes: new { @class = "form-control", @id = "ddlEstado" })
+                @*}*@
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Municipio")
+                @*@if (Model.Direccion.Colonia.Municipio.Municipios != null)
+                {*@
+                   @*// @Html.DropDownListFor(producto => Model.Direccion.Colonia.Municipio.IdMunicipio, new SelectList(Model.Direccion.Colonia.Municipio.Municipios, "IdMunicipio", "Nombre"), "Selecciona un Municipio", new { @class = "form-control", @id = "ddlMunicipio" })
+                }
+                else*@
+                @*{*@
+                    @Html.DropDownListFor(producto => Model.Direccion.Colonia.Municipio.IdMunicipio, new SelectList(string.Empty, "IdMunicipio", "Nombre"), "Selecciona un Municipio", htmlAttributes: new { @class = "form-control", @id = "ddlMunicipio" })
+                @*}*@
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-1">
+                <input type="submit" class="btn btn-success" value="Guardar" />
+                <p></p>
+            </div>
+            <div class="col-md-1">
+                @Html.ActionLink("Cancelar", "GetAll", "Usuario", new { @class = "btn btn-danger" })
+            </div>
+        </div>
+
+    }
+</div>
 

@@ -11,7 +11,7 @@ namespace ML
         public int IdColonia { get; set; }
         public string Nombre { get; set; }
         public string CodigoPostal { get; set; }
-        public string Municipio { get; set; }
+        public ML.Municipio Municipio { get; set; }
         public List<object> Colonias { get; set; }
     }
 }

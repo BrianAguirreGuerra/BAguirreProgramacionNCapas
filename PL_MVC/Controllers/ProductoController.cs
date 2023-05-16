@@ -58,8 +58,7 @@ namespace PL_MVC.Controllers
                 producto.Proveedor.IdProveedor = ((ML.Producto)result.Object).Proveedor.IdProveedor;
                 producto.Departamento.IdDepartamento = ((ML.Producto)result.Object).Departamento.IdDepartamento;
                 producto.Descripcion = ((ML.Producto)result.Object).Descripcion;
-                //producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
-                
+                //producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;              
                 int IdArea = producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
                 producto.Departamento.Area.Areas = resultArea.Objects;
                 result = BL.Departamento.GetByIdArea(IdArea);

@@ -21,6 +21,7 @@ namespace ML
         public string CURP { get; set; }
         public int IdUsuarioModificado { get; set; }
         public ML.Rol Rol { get; set; }
+        public ML.Direccion Direccion { get; set; }
         public string FechaNacimiento { get; set; }
         public string FechaCreacion { get; set; }
         public string FechaModificacion { get; set; }
