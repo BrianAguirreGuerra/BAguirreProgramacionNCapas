@@ -239,6 +239,7 @@
         <Function Name="EstadoGetByIdPais" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPais" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetAllPais" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetByIdArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdArea" Type="int" Mode="In" />
         </Function>
@@ -295,23 +296,6 @@
           <Parameter Name="IdUsuario" Type="int" Mode="In" />
         </Function>
         <Function Name="UsuarioGetRol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdUsuario" Type="int" Mode="In" />
-        </Function>
-        <Function Name="UsuarioUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Nombre" Type="varchar" Mode="In" />
-          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
-          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
-          <Parameter Name="UserName" Type="varchar" Mode="In" />
-          <Parameter Name="Email" Type="varchar" Mode="In" />
-          <Parameter Name="Pass" Type="varchar" Mode="In" />
-          <Parameter Name="Sexo" Type="char" Mode="In" />
-          <Parameter Name="Telefono" Type="varchar" Mode="In" />
-          <Parameter Name="Celular" Type="varchar" Mode="In" />
-          <Parameter Name="Curp" Type="varchar" Mode="In" />
-          <Parameter Name="IdRol" Type="tinyint" Mode="In" />
-          <Parameter Name="IdUsuarioModificado" Type="int" Mode="In" />
-          <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
-          <Parameter Name="Imagen" Type="varbinary(max)" Mode="In" />
           <Parameter Name="IdUsuario" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="BAguirreProgramacionNCapasModelStoreContainer">
@@ -495,28 +479,6 @@
             <End Role="Proveedor" EntitySet="Proveedors" />
             <End Role="Producto" EntitySet="Productoes" />
           </AssociationSet>
-          <FunctionImport Name="ProductoAdd">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="PrecioUnitario" Mode="In" Type="Decimal" />
-            <Parameter Name="Stock" Mode="In" Type="Int32" />
-            <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
-            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
-            <Parameter Name="Descripcion" Mode="In" Type="String" />
-            <Parameter Name="Imagen" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="ProductoUpdate">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="PrecioUnitario" Mode="In" Type="Decimal" />
-            <Parameter Name="Stock" Mode="In" Type="Int32" />
-            <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
-            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
-            <Parameter Name="Descripcion" Mode="In" Type="String" />
-            <Parameter Name="Imagen" Mode="In" Type="Binary" />
-            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="ProductoDelete">
-          <Parameter Name="IdProducto" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="UsuarioGetRol" ReturnType="Collection(String)">
           <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -558,8 +520,31 @@
           <FunctionImport Name="MunicipioGetByIdEstado" ReturnType="Collection(BAguirreProgramacionNCapasModel.MunicipioGetByIdEstado_Result)">
           <Parameter Name="IdEstado" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ProductoGetAll" ReturnType="Collection(BAguirreProgramacionNCapasModel.ProductoGetAll_Result3)" />
-          <FunctionImport Name="ProductoGetById" ReturnType="Collection(BAguirreProgramacionNCapasModel.ProductoGetById_Result1)">
+          <FunctionImport Name="GetAllPais" ReturnType="Collection(BAguirreProgramacionNCapasModel.GetAllPais_Result)" />
+          <FunctionImport Name="ProductoAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="PrecioUnitario" Mode="In" Type="Decimal" />
+            <Parameter Name="Stock" Mode="In" Type="Int32" />
+            <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Imagen" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoDelete">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoGetAll" ReturnType="Collection(BAguirreProgramacionNCapasModel.ProductoGetAll_Result4)" />
+          <FunctionImport Name="ProductoGetById" ReturnType="Collection(BAguirreProgramacionNCapasModel.ProductoGetById_Result2)">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoUpdate">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="PrecioUnitario" Mode="In" Type="Decimal" />
+            <Parameter Name="Stock" Mode="In" Type="Int32" />
+            <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Imagen" Mode="In" Type="Binary" />
             <Parameter Name="IdProducto" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -941,6 +926,34 @@
           <Property Type="Binary" Name="Imagen" Nullable="true" />
           <Property Type="Int32" Name="IdArea" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="GetAllPais_Result">
+          <Property Type="Int32" Name="IdPais" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ProductoGetAll_Result4">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="PrecioUnitario" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="Stock" Nullable="false" />
+          <Property Type="Int32" Name="IdProveedor" Nullable="false" />
+          <Property Type="String" Name="NombreProveedor" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="String" Name="DepartamentNombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="Imagen" Nullable="true" />
+          <Property Type="String" Name="NombreArea" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ProductoGetById_Result2">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="PrecioUnitario" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="Stock" Nullable="false" />
+          <Property Type="Int32" Name="IdProveedor" Nullable="false" />
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="Imagen" Nullable="true" />
+          <Property Type="Int32" Name="IdArea" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1003,7 +1016,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="UsuarioUpdate" FunctionName="BAguirreProgramacionNCapasModel.Store.UsuarioUpdate" />
           <EntitySetMapping Name="Areas">
             <EntityTypeMapping TypeName="BAguirreProgramacionNCapasModel.Area">
               <MappingFragment StoreEntitySet="Area">
@@ -1044,9 +1056,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="ProductoAdd" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoAdd" />
-          <FunctionImportMapping FunctionImportName="ProductoUpdate" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoUpdate" />
-          <FunctionImportMapping FunctionImportName="ProductoDelete" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoDelete" />
           <FunctionImportMapping FunctionImportName="UsuarioGetRol" FunctionName="BAguirreProgramacionNCapasModel.Store.UsuarioGetRol" />
           <FunctionImportMapping FunctionImportName="UsuarioGetAll" FunctionName="BAguirreProgramacionNCapasModel.Store.UsuarioGetAll">
             <ResultMapping>
@@ -1160,9 +1169,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllPais" FunctionName="BAguirreProgramacionNCapasModel.Store.GetAllPais">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.GetAllPais_Result">
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductoAdd" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoAdd" />
+          <FunctionImportMapping FunctionImportName="ProductoDelete" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoDelete" />
           <FunctionImportMapping FunctionImportName="ProductoGetAll" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoGetAll">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.ProductoGetAll_Result3">
+              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.ProductoGetAll_Result4">
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
@@ -1179,7 +1198,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ProductoGetById" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoGetById">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.ProductoGetById_Result1">
+              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.ProductoGetById_Result2">
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
@@ -1192,7 +1211,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="ProductoUpdate" FunctionName="BAguirreProgramacionNCapasModel.Store.ProductoUpdate" />
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

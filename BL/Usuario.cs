@@ -681,6 +681,7 @@ namespace BL
                     usuarioDL.Imagen = usuario.Imagen;
                     usuarioDL.FechaCreacion = DateTime.Now;
                     usuarioDL.FechaModificacion = DateTime.Now;
+                    usuarioDL.IdRol = usuario.Rol.IdRol;
                     context.Usuarios.Add(usuarioDL);
                     int rowsAffected = context.SaveChanges();
 
@@ -691,7 +692,7 @@ namespace BL
                     else
                     {
                         result.Correct = false;
-                        result.ErrorMessage = "El producto no fue insertado";
+                        result.ErrorMessage = "El usuario no fue insertado";
                     }
 
 
@@ -863,8 +864,13 @@ namespace BL
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
                     var query = (from usuario in context.Usuarios
+                                 join direccion in context.Direccions on usuario.IdUsuario equals direccion.IdUsuario
+                                 join colonia in context.Colonias on direccion.IdColonia equals colonia.IdColonia
+                                 join municipio in context.Municipios on colonia.IdMunicipio equals municipio.IdMunicipio
+                                 join estado in context.Estadoes on municipio.IdEstado equals estado.IdEstado
+                                 join pais in context.Pais on estado.IdPais equals pais.IdPais
                                  where usuario.IdUsuario == IdUsuario
-                                 select new { IdUsuario = usuario.IdUsuario, Nombre = usuario.Nombre, ApellidoPaterno = usuario.ApellidoPaterno, ApellidoMaterno = usuario.ApellidoMaterno, UserName = usuario.UserName, Email = usuario.Email, Password = usuario.Pass, Sexo = usuario.Sexo, Telefono = usuario.Telefono, Celular = usuario.Celular, CURP = usuario.CURP, IdRol = usuario.IdRol, IdUsuarioModificado = usuario.IdUsuarioModificado, FechaNacimiento = usuario.FechaNacimiento, Imagen = usuario.Imagen, FechaCreacion = usuario.FechaCreacion, FechaModificacion = usuario.FechaModificacion }).SingleOrDefault();
+                                 select new { IdUsuario = usuario.IdUsuario, Nombre = usuario.Nombre, ApellidoPaterno = usuario.ApellidoPaterno, ApellidoMaterno = usuario.ApellidoMaterno, UserName = usuario.UserName, Email = usuario.Email, Password = usuario.Pass, Sexo = usuario.Sexo, Telefono = usuario.Telefono, Celular = usuario.Celular, CURP = usuario.CURP, IdRol = usuario.IdRol, IdUsuarioModificado = usuario.IdUsuarioModificado, FechaNacimiento = usuario.FechaNacimiento, Imagen = usuario.Imagen, FechaCreacion = usuario.FechaCreacion, FechaModificacion = usuario.FechaModificacion, IdColonia = direccion.IdColonia, IdMunicipio = colonia.IdMunicipio, IdEstado = municipio.IdEstado, IdPais = estado.IdPais }).SingleOrDefault();
 
                     if (query != null)
                     {
@@ -887,7 +893,15 @@ namespace BL
                         usuariolista.Imagen = query.Imagen;
                         usuariolista.FechaCreacion = (query.FechaCreacion != null) ? query.FechaCreacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
                         usuariolista.FechaModificacion = (query.FechaModificacion != null) ? query.FechaModificacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
-
+                        usuariolista.Direccion = new ML.Direccion();
+                        usuariolista.Direccion.Colonia = new ML.Colonia();
+                        usuariolista.Direccion.Colonia.Municipio = new ML.Municipio();
+                        usuariolista.Direccion.Colonia.Municipio.Estado = new ML.Estado();
+                        usuariolista.Direccion.Colonia.Municipio.Estado.Pais = new ML.Pais();
+                        usuariolista.Direccion.Colonia.IdColonia = (query.IdColonia != null) ? query.IdColonia.Value : int.Parse("0");
+                        usuariolista.Direccion.Colonia.Municipio.IdMunicipio = (query.IdMunicipio != null) ? query.IdMunicipio.Value : int.Parse("0");  
+                        usuariolista.Direccion.Colonia.Municipio.Estado.IdEstado = (query.IdEstado != null) ? query.IdEstado.Value : int.Parse("0");
+                        usuariolista.Direccion.Colonia.Municipio.Estado.Pais.IdPais = (query.IdPais != null) ? query.IdPais.Value : int.Parse("0");
                         result.Object = usuariolista;
                         result.Correct = true;
                     }

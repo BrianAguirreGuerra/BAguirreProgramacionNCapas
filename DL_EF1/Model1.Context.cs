@@ -183,85 +183,6 @@ namespace DL_EF1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UsuarioUpdate", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, userNameParameter, emailParameter, passParameter, sexoParameter, telefonoParameter, celularParameter, curpParameter, idRolParameter, idUsuarioModificadoParameter, fechaNacimientoParameter, imagenParameter, idUsuarioParameter);
         }
     
-        public virtual int ProductoAdd(string nombre, Nullable<decimal> precioUnitario, Nullable<int> stock, Nullable<int> idProveedor, Nullable<int> idDepartamento, string descripcion, byte[] imagen)
-        {
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            var precioUnitarioParameter = precioUnitario.HasValue ?
-                new ObjectParameter("PrecioUnitario", precioUnitario) :
-                new ObjectParameter("PrecioUnitario", typeof(decimal));
-    
-            var stockParameter = stock.HasValue ?
-                new ObjectParameter("Stock", stock) :
-                new ObjectParameter("Stock", typeof(int));
-    
-            var idProveedorParameter = idProveedor.HasValue ?
-                new ObjectParameter("IdProveedor", idProveedor) :
-                new ObjectParameter("IdProveedor", typeof(int));
-    
-            var idDepartamentoParameter = idDepartamento.HasValue ?
-                new ObjectParameter("IdDepartamento", idDepartamento) :
-                new ObjectParameter("IdDepartamento", typeof(int));
-    
-            var descripcionParameter = descripcion != null ?
-                new ObjectParameter("Descripcion", descripcion) :
-                new ObjectParameter("Descripcion", typeof(string));
-    
-            var imagenParameter = imagen != null ?
-                new ObjectParameter("Imagen", imagen) :
-                new ObjectParameter("Imagen", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoAdd", nombreParameter, precioUnitarioParameter, stockParameter, idProveedorParameter, idDepartamentoParameter, descripcionParameter, imagenParameter);
-        }
-    
-        public virtual int ProductoUpdate(string nombre, Nullable<decimal> precioUnitario, Nullable<int> stock, Nullable<int> idProveedor, Nullable<int> idDepartamento, string descripcion, byte[] imagen, Nullable<int> idProducto)
-        {
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            var precioUnitarioParameter = precioUnitario.HasValue ?
-                new ObjectParameter("PrecioUnitario", precioUnitario) :
-                new ObjectParameter("PrecioUnitario", typeof(decimal));
-    
-            var stockParameter = stock.HasValue ?
-                new ObjectParameter("Stock", stock) :
-                new ObjectParameter("Stock", typeof(int));
-    
-            var idProveedorParameter = idProveedor.HasValue ?
-                new ObjectParameter("IdProveedor", idProveedor) :
-                new ObjectParameter("IdProveedor", typeof(int));
-    
-            var idDepartamentoParameter = idDepartamento.HasValue ?
-                new ObjectParameter("IdDepartamento", idDepartamento) :
-                new ObjectParameter("IdDepartamento", typeof(int));
-    
-            var descripcionParameter = descripcion != null ?
-                new ObjectParameter("Descripcion", descripcion) :
-                new ObjectParameter("Descripcion", typeof(string));
-    
-            var imagenParameter = imagen != null ?
-                new ObjectParameter("Imagen", imagen) :
-                new ObjectParameter("Imagen", typeof(byte[]));
-    
-            var idProductoParameter = idProducto.HasValue ?
-                new ObjectParameter("IdProducto", idProducto) :
-                new ObjectParameter("IdProducto", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoUpdate", nombreParameter, precioUnitarioParameter, stockParameter, idProveedorParameter, idDepartamentoParameter, descripcionParameter, imagenParameter, idProductoParameter);
-        }
-    
-        public virtual int ProductoDelete(Nullable<int> idProducto)
-        {
-            var idProductoParameter = idProducto.HasValue ?
-                new ObjectParameter("IdProducto", idProducto) :
-                new ObjectParameter("IdProducto", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoDelete", idProductoParameter);
-        }
-    
         public virtual ObjectResult<string> UsuarioGetRol(Nullable<int> idUsuario)
         {
             var idUsuarioParameter = idUsuario.HasValue ?
@@ -312,18 +233,102 @@ namespace DL_EF1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MunicipioGetByIdEstado_Result>("MunicipioGetByIdEstado", idEstadoParameter);
         }
     
-        public virtual ObjectResult<ProductoGetAll_Result3> ProductoGetAll()
+        public virtual ObjectResult<GetAllPais_Result> GetAllPais()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetAll_Result3>("ProductoGetAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllPais_Result>("GetAllPais");
         }
     
-        public virtual ObjectResult<ProductoGetById_Result1> ProductoGetById(Nullable<int> idProducto)
+        public virtual int ProductoAdd(string nombre, Nullable<decimal> precioUnitario, Nullable<int> stock, Nullable<int> idProveedor, Nullable<int> idDepartamento, string descripcion, byte[] imagen)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var precioUnitarioParameter = precioUnitario.HasValue ?
+                new ObjectParameter("PrecioUnitario", precioUnitario) :
+                new ObjectParameter("PrecioUnitario", typeof(decimal));
+    
+            var stockParameter = stock.HasValue ?
+                new ObjectParameter("Stock", stock) :
+                new ObjectParameter("Stock", typeof(int));
+    
+            var idProveedorParameter = idProveedor.HasValue ?
+                new ObjectParameter("IdProveedor", idProveedor) :
+                new ObjectParameter("IdProveedor", typeof(int));
+    
+            var idDepartamentoParameter = idDepartamento.HasValue ?
+                new ObjectParameter("IdDepartamento", idDepartamento) :
+                new ObjectParameter("IdDepartamento", typeof(int));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoAdd", nombreParameter, precioUnitarioParameter, stockParameter, idProveedorParameter, idDepartamentoParameter, descripcionParameter, imagenParameter);
+        }
+    
+        public virtual int ProductoDelete(Nullable<int> idProducto)
         {
             var idProductoParameter = idProducto.HasValue ?
                 new ObjectParameter("IdProducto", idProducto) :
                 new ObjectParameter("IdProducto", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetById_Result1>("ProductoGetById", idProductoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoDelete", idProductoParameter);
+        }
+    
+        public virtual ObjectResult<ProductoGetAll_Result4> ProductoGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetAll_Result4>("ProductoGetAll");
+        }
+    
+        public virtual ObjectResult<ProductoGetById_Result2> ProductoGetById(Nullable<int> idProducto)
+        {
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("IdProducto", idProducto) :
+                new ObjectParameter("IdProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetById_Result2>("ProductoGetById", idProductoParameter);
+        }
+    
+        public virtual int ProductoUpdate(string nombre, Nullable<decimal> precioUnitario, Nullable<int> stock, Nullable<int> idProveedor, Nullable<int> idDepartamento, string descripcion, byte[] imagen, Nullable<int> idProducto)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var precioUnitarioParameter = precioUnitario.HasValue ?
+                new ObjectParameter("PrecioUnitario", precioUnitario) :
+                new ObjectParameter("PrecioUnitario", typeof(decimal));
+    
+            var stockParameter = stock.HasValue ?
+                new ObjectParameter("Stock", stock) :
+                new ObjectParameter("Stock", typeof(int));
+    
+            var idProveedorParameter = idProveedor.HasValue ?
+                new ObjectParameter("IdProveedor", idProveedor) :
+                new ObjectParameter("IdProveedor", typeof(int));
+    
+            var idDepartamentoParameter = idDepartamento.HasValue ?
+                new ObjectParameter("IdDepartamento", idDepartamento) :
+                new ObjectParameter("IdDepartamento", typeof(int));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(byte[]));
+    
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("IdProducto", idProducto) :
+                new ObjectParameter("IdProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoUpdate", nombreParameter, precioUnitarioParameter, stockParameter, idProveedorParameter, idDepartamentoParameter, descripcionParameter, imagenParameter, idProductoParameter);
         }
     }
 }

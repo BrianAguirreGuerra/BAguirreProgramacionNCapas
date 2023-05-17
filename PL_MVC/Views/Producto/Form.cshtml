@@ -22,52 +22,52 @@
     {
         <div class="row">
             <div class="col-md-6">
-                @Html.LabelFor(producto => Model.IdProducto, new { @class = "hidden" })
-                @Html.TextBoxFor(producto => Model.IdProducto, new { @class = "form-control hidden" })
+                @Html.LabelFor(model => Model.IdProducto, new { @class = "hidden" })
+                @Html.TextBoxFor(model => Model.IdProducto, new { @class = "form-control hidden" })
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
                 @Html.Label("Nombre")
-                @Html.TextBoxFor(producto => Model.Nombre, new { @class = "form-control" })
+                @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control" })
                 <br />
             </div>
             <div class="col-md-3">
                 @Html.Label("Precio Unitario")
-                @Html.TextBoxFor(producto => Model.PrecioUnitario, new { @class = "form-control" })
+                @Html.TextBoxFor(model => Model.PrecioUnitario, new { @class = "form-control" })
                 <br />
             </div>
             <div class="col-md-3">
                 @Html.Label("Stock")
-                @Html.TextBoxFor(producto => Model.Stock, new { @class = "form-control" })
+                @Html.TextBoxFor(model => Model.Stock, new { @class = "form-control" })
                 <br />
             </div>
             <div class="col-md-3">
                 @Html.Label("Proveedor")
-                @Html.DropDownListFor(producto => Model.Proveedor.IdProveedor, new SelectList(Model.Proveedor.Proveedores, "IdProveedor", "Nombre"), "Selecciona un proveedor", new { @class = "form-control" })
+                @Html.DropDownListFor(model => Model.Proveedor.IdProveedor, new SelectList(Model.Proveedor.Proveedores, "IdProveedor", "Nombre"), "Selecciona un proveedor", new { @class = "form-control" })
                 <br />
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
                 @Html.Label("Area")
-                @Html.DropDownListFor(producto => Model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una Area", new { @id = "ddlArea", @class = "form-control" })
+                @Html.DropDownListFor(model => Model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una Area", new { @id = "ddlArea", @class = "form-control" })
 
             </div>
             <div class="col-md-3">
                 @Html.Label("Departamento")
                 @if (Model.Departamento.Departamentos != null)
                 {
-                    @Html.DropDownListFor(producto => Model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un Departamento", new { @class = "form-control", @id = "ddlDepartamento" })
+                    @Html.DropDownListFor(model => Model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un Departamento", new { @class = "form-control", @id = "ddlDepartamento" })
                 }
                 else
                 {
-                    @Html.DropDownListFor(producto => Model.Departamento.IdDepartamento, new SelectList(string.Empty, "IdDepartamento", "Nombre"), "Selecciona un Departamento", htmlAttributes: new { @class = "form-control", @id = "ddlDepartamento" })
+                    @Html.DropDownListFor(model => Model.Departamento.IdDepartamento, new SelectList(string.Empty, "IdDepartamento", "Nombre"), "Selecciona un Departamento", htmlAttributes: new { @class = "form-control", @id = "ddlDepartamento" })
                 }
             </div>
             <div class="col-md-3">
                 @Html.Label("Descripcion")
-                @Html.TextBoxFor(producto => Model.Descripcion, new { @class = "form-control" })
+                @Html.TextBoxFor(model => Model.Descripcion, new { @class = "form-control" })
                 <br />
             </div>
         </div>

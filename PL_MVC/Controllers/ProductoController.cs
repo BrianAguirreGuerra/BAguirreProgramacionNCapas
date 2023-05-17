@@ -37,8 +37,6 @@ namespace PL_MVC.Controllers
             ML.Result resultArea = BL.Area.GetAllLinQ();
             producto.Departamento.Area = new ML.Area();
             producto.Departamento.Area.Areas = resultArea.Objects;
-            ML.Result resultDepartamento = BL.Departamento.GetAllLinQ();
-            //producto.Departamento.Departamentos = resultDepartamento.Objects;
 
             if (IdProducto == null) //add
             {
@@ -56,15 +54,11 @@ namespace PL_MVC.Controllers
                 producto.PrecioUnitario = ((ML.Producto)result.Object).PrecioUnitario;
                 producto.Stock = ((ML.Producto)result.Object).Stock;
                 producto.Proveedor.IdProveedor = ((ML.Producto)result.Object).Proveedor.IdProveedor;
-                producto.Departamento.IdDepartamento = ((ML.Producto)result.Object).Departamento.IdDepartamento;
-                producto.Descripcion = ((ML.Producto)result.Object).Descripcion;
-                //producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;              
+                producto.Descripcion = ((ML.Producto)result.Object).Descripcion;            
                 int IdArea = producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
-                producto.Departamento.Area.Areas = resultArea.Objects;
+                producto.Departamento.IdDepartamento = ((ML.Producto)result.Object).Departamento.IdDepartamento;
                 result = BL.Departamento.GetByIdArea(IdArea);
                 producto.Departamento.Departamentos = result.Objects;
-
-                //BL.Departamento.GetByIdArea //lista
                 return View(producto);
             }
 

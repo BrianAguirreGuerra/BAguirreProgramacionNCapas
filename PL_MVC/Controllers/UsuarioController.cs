@@ -38,6 +38,13 @@ namespace PL_MVC.Controllers
             ML.Result resultRol = BL.Rol.GetAllLinQ();
             usuario.Rol = new ML.Rol();
             usuario.Rol.Roles = resultRol.Objects;
+            ML.Result resultPais = BL.Pais.GetAll();
+            usuario.Direccion = new ML.Direccion();
+            usuario.Direccion.Colonia = new ML.Colonia();
+            usuario.Direccion.Colonia.Municipio = new ML.Municipio();
+            usuario.Direccion.Colonia.Municipio.Estado= new ML.Estado();
+            usuario.Direccion.Colonia.Municipio.Estado.Pais = new ML.Pais();
+            usuario.Direccion.Colonia.Municipio.Estado.Pais.Paises = resultPais.Objects;
 
             if (IdUsuario == null) //add
             {
@@ -64,6 +71,16 @@ namespace PL_MVC.Controllers
                 usuario.IdUsuarioModificado = ((ML.Usuario)result.Object).IdUsuarioModificado;
                 usuario.FechaNacimiento = ((ML.Usuario)result.Object).FechaNacimiento;
                 usuario.Rol.IdRol = ((ML.Usuario)result.Object).Rol.IdRol;
+                int IdPais = usuario.Direccion.Colonia.Municipio.Estado.Pais.IdPais = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.Estado.Pais.IdPais;
+                int IdEstado = usuario.Direccion.Colonia.Municipio.Estado.IdEstado = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.Estado.IdEstado;
+                int IdMunicipio = usuario.Direccion.Colonia.Municipio.IdMunicipio = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.IdMunicipio;
+                int IdColonia = usuario.Direccion.Colonia.IdColonia = ((ML.Usuario)result.Object).Direccion.Colonia.IdColonia;
+                result = BL.Estado.GetByIdPais(IdPais);
+                usuario.Direccion.Colonia.Municipio.Estado.Estados = result.Objects;      
+                result = BL.Municipio.GetByIdEstado(IdEstado);
+                usuario.Direccion.Colonia.Municipio.Municipios = result.Objects;
+                result = BL.Colonia.GetByIdMunicipio(IdMunicipio);
+                usuario.Direccion.Colonia.Colonias = result.Objects;
                 return View(usuario);
             }
 
@@ -72,14 +89,14 @@ namespace PL_MVC.Controllers
         [HttpPost] // Recibir los datos del formulario
         public ActionResult Form(ML.Usuario usuario)
         {
+
+
             if (usuario.IdUsuario == 0) //add
             {
                 ML.Result result = BL.Usuario.AddLinq(usuario);
-
+                result = BL.Direccion.Add(usuario); 
                 if (result.Correct)
                 {
-                    //mediante el viewbag enviamos datos
-                    //del controlador -> hacia la vista
                     ViewBag.Mensaje = "Usuario registrado correctamente";
                 }
                 else
@@ -120,6 +137,24 @@ namespace PL_MVC.Controllers
 
             return PartialView("Modal");
         }
-                
+
+        public JsonResult GetEstado(int IdPais)
+        {
+            ML.Result resultEstados = BL.Estado.GetByIdPais(IdPais);
+            return Json(resultEstados.Objects);
+        }
+
+        public JsonResult GetMunicipio(int IdEstado)
+        {
+            ML.Result resultMunicipio = BL.Municipio.GetByIdEstado(IdEstado);
+            return Json(resultMunicipio.Objects);
+        }
+
+        public JsonResult GetColonias(int IdMunicipio)
+        {
+            ML.Result resultColonia = BL.Colonia.GetByIdMunicipio(IdMunicipio);
+            return Json(resultColonia.Objects);
+        }
+
     }
 }
