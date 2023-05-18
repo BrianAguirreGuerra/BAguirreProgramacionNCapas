@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Xml.Linq;
 
@@ -24,7 +27,7 @@ namespace PL_MVC.Controllers
             }
             else
             {
-                ViewBag.Message = "Ocurrió un error al traer los registros de materias" + result.ErrorMessage;
+                ViewBag.Message = "Ocurrió un error al traer los registros" + result.ErrorMessage;
             }
           
             return View(usuario);
@@ -75,26 +78,37 @@ namespace PL_MVC.Controllers
                 int IdEstado = usuario.Direccion.Colonia.Municipio.Estado.IdEstado = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.Estado.IdEstado;
                 int IdMunicipio = usuario.Direccion.Colonia.Municipio.IdMunicipio = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.IdMunicipio;
                 int IdColonia = usuario.Direccion.Colonia.IdColonia = ((ML.Usuario)result.Object).Direccion.Colonia.IdColonia;
+                usuario.Imagen = ((ML.Usuario)result.Object).Imagen;
                 result = BL.Estado.GetByIdPais(IdPais);
-                usuario.Direccion.Colonia.Municipio.Estado.Estados = result.Objects;      
-                result = BL.Municipio.GetByIdEstado(IdEstado);
-                usuario.Direccion.Colonia.Municipio.Municipios = result.Objects;
-                result = BL.Colonia.GetByIdMunicipio(IdMunicipio);
-                usuario.Direccion.Colonia.Colonias = result.Objects;
+                if (result.Correct)
+                {
+                    usuario.Direccion.Colonia.Municipio.Estado.Estados = result.Objects;
+                    result = BL.Municipio.GetByIdEstado(IdEstado);
+                    
+                    usuario.Direccion.Colonia.Municipio.Municipios = result.Objects;
+                    result = BL.Colonia.GetByIdMunicipio(IdMunicipio);
+                    usuario.Direccion.Colonia.Colonias = result.Objects;
+                    
+                }
+                else
+                {
+                    ViewBag.Message = "Ocurrió un error al actualizar los registros" + result.ErrorMessage;
+                }
                 return View(usuario);
             }
 
         }
 
         [HttpPost] // Recibir los datos del formulario
-        public ActionResult Form(ML.Usuario usuario)
+        public ActionResult Form(ML.Usuario usuario, HttpPostedFileBase ImgUsuario)
         {
 
+            usuario.Imagen = ConvertToBytes(ImgUsuario);
 
             if (usuario.IdUsuario == 0) //add
             {
                 ML.Result result = BL.Usuario.AddLinq(usuario);
-                result = BL.Direccion.Add(usuario); 
+
                 if (result.Correct)
                 {
                     ViewBag.Mensaje = "Usuario registrado correctamente";
@@ -156,5 +170,12 @@ namespace PL_MVC.Controllers
             return Json(resultColonia.Objects);
         }
 
+        public byte[] ConvertToBytes(HttpPostedFileBase ImgUsuario)
+        {
+            byte[] imgBytes = null;
+            BinaryReader reader = new BinaryReader(ImgUsuario.InputStream);
+            imgBytes = reader.ReadBytes((int)ImgUsuario.ContentLength);
+            return imgBytes;
+        }
     }
 }

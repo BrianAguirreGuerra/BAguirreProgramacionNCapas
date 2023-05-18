@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,7 +21,7 @@ namespace PL_MVC.Controllers
             }
             else
             {
-                ViewBag.Message = "Ocurrió un error al traer los registros de materias" + result.ErrorMessage;
+                ViewBag.Message = "Ocurrió un error al traer los registros" + result.ErrorMessage;
             }
 
             return View(producto);
@@ -57,6 +58,7 @@ namespace PL_MVC.Controllers
                 producto.Descripcion = ((ML.Producto)result.Object).Descripcion;            
                 int IdArea = producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
                 producto.Departamento.IdDepartamento = ((ML.Producto)result.Object).Departamento.IdDepartamento;
+                producto.Imagen = ((ML.Producto)result.Object).Imagen;
                 result = BL.Departamento.GetByIdArea(IdArea);
                 producto.Departamento.Departamentos = result.Objects;
                 return View(producto);
@@ -65,8 +67,10 @@ namespace PL_MVC.Controllers
         }
 
         [HttpPost] // Recibir los datos del formulario
-        public ActionResult Form(ML.Producto producto)
+        public ActionResult Form(ML.Producto producto, HttpPostedFileBase ImgProducto)
         {
+            producto.Imagen = ConvertToBytes(ImgProducto);
+
             if (producto.IdProducto == 0) //add
             {
                 ML.Result result = BL.Producto.AddLinq(producto);
@@ -129,6 +133,14 @@ namespace PL_MVC.Controllers
             ML.Result resultDepartamentos = BL.Departamento.GetByIdArea(IdArea);
             //crear un nuevo stored GrupoGetByIdPlantel -> DepartamentoGetByIdArea
             return Json(resultDepartamentos.Objects);
+        }
+
+        public byte[] ConvertToBytes(HttpPostedFileBase ImgProducto)
+        {
+            byte[] imgBytes = null;
+            BinaryReader reader = new BinaryReader(ImgProducto.InputStream);
+            imgBytes = reader.ReadBytes((int)ImgProducto.ContentLength);
+            return imgBytes;
         }
 
     }

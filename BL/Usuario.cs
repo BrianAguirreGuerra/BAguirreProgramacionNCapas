@@ -681,7 +681,6 @@ namespace BL
                     usuarioDL.Imagen = usuario.Imagen;
                     usuarioDL.FechaCreacion = DateTime.Now;
                     usuarioDL.FechaModificacion = DateTime.Now;
-                    usuarioDL.IdRol = usuario.Rol.IdRol;
                     context.Usuarios.Add(usuarioDL);
                     int rowsAffected = context.SaveChanges();
 
