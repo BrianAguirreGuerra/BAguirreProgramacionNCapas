@@ -11,6 +11,7 @@ using System.Collections;
 using DL_EF1;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Data.Entity.Core.Objects;
 
 namespace BL
 {
@@ -411,15 +412,30 @@ namespace BL
             {
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
-                    
+
                     DateTime dt = DateTime.ParseExact(usuario.FechaNacimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    
+                    ObjectParameter IdUsuario = new ObjectParameter("IdUsuario", typeof(int));
 
-                    var query = context.UsuarioAdd(usuario.Nombre,usuario.ApellidoPaterno,usuario.ApellidoMaterno,usuario.UserName,usuario.Email,usuario.Password,usuario.Sexo,usuario.Telefono,usuario.Celular,usuario.CURP,usuario.Rol.IdRol,usuario.IdUsuarioModificado,dt,usuario.Imagen);
+                    var query = context.UsuarioAdd(IdUsuario, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.UserName, usuario.Email, usuario.Password, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.CURP, usuario.Rol.IdRol, usuario.IdUsuarioModificado, dt, usuario.Imagen);
 
+                    context.SaveChanges();
 
-                    if (query >= 1)
+                    if ((int)IdUsuario.Value > 0)
                     {
-                        result.Correct = true;
+                        usuario.IdUsuario = (int)IdUsuario.Value;
+
+                        ML.Result resultDireccion = BL.Direccion.Add(usuario);
+
+                        if (resultDireccion.Correct)
+                        {
+                            result.Correct = true;
+                        }
+                        else
+                        {
+                            result.Correct = false;
+                            result.ErrorMessage = resultDireccion.ErrorMessage;
+                        }
                     }
                     else
                     {
@@ -478,15 +494,26 @@ namespace BL
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
                     DateTime dt = DateTime.ParseExact(usuario.FechaNacimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    var updateResult = context.UsuarioUpdate(usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.UserName, usuario.Email, usuario.Password, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.CURP, usuario.Rol.IdRol, usuario.IdUsuarioModificado, dt, usuario.Imagen, usuario.IdUsuario);
+                    var updateResult = context.UsuarioUpdate(usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.UserName, usuario.Email, usuario.Password, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.CURP, usuario.Rol.IdRol, dt, usuario.Imagen, usuario.IdUsuario);
+                    
                     if (updateResult >= 1)
                     {
-                        result.Correct = true;
+                        ML.Result resultDireccion = BL.Direccion.Update(usuario);
+
+                        if (resultDireccion.Correct)
+                        {
+                            result.Correct = true;
+                        }
+                        else
+                        {
+                            result.Correct = false;
+                            result.ErrorMessage = resultDireccion.ErrorMessage;
+                        }
                     }
                     else
                     {
                         result.Correct = false;
-                        result.ErrorMessage = "No se actualizó el status de la credencial";
+                        result.ErrorMessage = "No se actualizó el usuario";
                     }
                 }
             }
@@ -763,7 +790,7 @@ namespace BL
             }
             return result;
 
-        }
+         }
         public static ML.Result DeleteLinq(int IdUsuario)
         {
             Result result = new Result();
@@ -869,7 +896,7 @@ namespace BL
                                  join estado in context.Estadoes on municipio.IdEstado equals estado.IdEstado
                                  join pais in context.Pais on estado.IdPais equals pais.IdPais
                                  where usuario.IdUsuario == IdUsuario
-                                 select new { IdUsuario = usuario.IdUsuario, Nombre = usuario.Nombre, ApellidoPaterno = usuario.ApellidoPaterno, ApellidoMaterno = usuario.ApellidoMaterno, UserName = usuario.UserName, Email = usuario.Email, Password = usuario.Pass, Sexo = usuario.Sexo, Telefono = usuario.Telefono, Celular = usuario.Celular, CURP = usuario.CURP, IdRol = usuario.IdRol, IdUsuarioModificado = usuario.IdUsuarioModificado, FechaNacimiento = usuario.FechaNacimiento, Imagen = usuario.Imagen, FechaCreacion = usuario.FechaCreacion, FechaModificacion = usuario.FechaModificacion, IdColonia = direccion.IdColonia, IdMunicipio = colonia.IdMunicipio, IdEstado = municipio.IdEstado, IdPais = estado.IdPais }).SingleOrDefault();
+                                 select new { IdUsuario = usuario.IdUsuario, Nombre = usuario.Nombre, ApellidoPaterno = usuario.ApellidoPaterno, ApellidoMaterno = usuario.ApellidoMaterno, UserName = usuario.UserName, Email = usuario.Email, Password = usuario.Pass, Sexo = usuario.Sexo, Telefono = usuario.Telefono, Celular = usuario.Celular, CURP = usuario.CURP, IdRol = usuario.IdRol, IdUsuarioModificado = usuario.IdUsuarioModificado, FechaNacimiento = usuario.FechaNacimiento, Imagen = usuario.Imagen, FechaCreacion = usuario.FechaCreacion, FechaModificacion = usuario.FechaModificacion, IdDireccion = direccion.IdDireccion, Calle = direccion.Calle, NumeroInterior = direccion.NumeroInterior, NumeroExterior = direccion.NumeroExterior, IdColonia = direccion.IdColonia, IdMunicipio = colonia.IdMunicipio, IdEstado = municipio.IdEstado, IdPais = estado.IdPais }).SingleOrDefault();
 
                     if (query != null)
                     {
@@ -893,6 +920,10 @@ namespace BL
                         usuariolista.FechaCreacion = (query.FechaCreacion != null) ? query.FechaCreacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
                         usuariolista.FechaModificacion = (query.FechaModificacion != null) ? query.FechaModificacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
                         usuariolista.Direccion = new ML.Direccion();
+                        usuariolista.Direccion.IdDireccion = (query.IdDireccion != null) ? query.IdDireccion : int.Parse("0");
+                        usuariolista.Direccion.Calle = (query.Calle != null) ? query.Calle : "0";
+                        usuariolista.Direccion.NumeroInterior = (query.NumeroInterior != null) ? query.NumeroInterior : "0";
+                        usuariolista.Direccion.NumeroExterior = (query.NumeroExterior != null) ? query.NumeroExterior : "0";
                         usuariolista.Direccion.Colonia = new ML.Colonia();
                         usuariolista.Direccion.Colonia.Municipio = new ML.Municipio();
                         usuariolista.Direccion.Colonia.Municipio.Estado = new ML.Estado();

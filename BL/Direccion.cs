@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ML;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -41,6 +42,35 @@ namespace BL
                 }
             }
 
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+
+        public static Result Update(ML.Usuario usuario)
+        {
+            Result result = new Result();
+            try
+            {
+
+                using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
+                {
+                    var updateResult = context.DireccionUpdate(usuario.Direccion.Calle, usuario.Direccion.NumeroInterior, usuario.Direccion.NumeroExterior, usuario.Direccion.Colonia.IdColonia, usuario.IdUsuario);
+
+                    if (updateResult >= 1)
+                    {
+                            result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se actualizó la direccion";
+                    }
+                }
+            }
             catch (Exception ex)
             {
                 result.Correct = false;

@@ -16,7 +16,7 @@
         <AssociationConnector Association="BAguirreProgramacionNCapasModel.FK__Departame__IdAre__5CD6CB2B" />
         <AssociationConnector Association="BAguirreProgramacionNCapasModel.FK__Producto__IdDepa__66603565" />
         <AssociationConnector Association="BAguirreProgramacionNCapasModel.FK__Producto__IdProv__656C112C" />
-        <EntityTypeShape EntityType="BAguirreProgramacionNCapasModel.Colonia" Width="1.5" PointX="7.5" PointY="9.125" />
+        <EntityTypeShape EntityType="BAguirreProgramacionNCapasModel.Colonia" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BAguirreProgramacionNCapasModel.Direccion" Width="1.5" PointX="10.75" PointY="5" />
         <EntityTypeShape EntityType="BAguirreProgramacionNCapasModel.Estado" Width="1.5" PointX="3" PointY="9.25" />
         <EntityTypeShape EntityType="BAguirreProgramacionNCapasModel.Municipio" Width="1.5" PointX="5.25" PointY="9.25" />

@@ -74,6 +74,10 @@ namespace PL_MVC.Controllers
                 usuario.IdUsuarioModificado = ((ML.Usuario)result.Object).IdUsuarioModificado;
                 usuario.FechaNacimiento = ((ML.Usuario)result.Object).FechaNacimiento;
                 usuario.Rol.IdRol = ((ML.Usuario)result.Object).Rol.IdRol;
+                usuario.Direccion.IdDireccion = ((ML.Usuario)result.Object).Direccion.IdDireccion;
+                usuario.Direccion.Calle = ((ML.Usuario)result.Object).Direccion.Calle;
+                usuario.Direccion.NumeroInterior = ((ML.Usuario)result.Object).Direccion.NumeroInterior;
+                usuario.Direccion.NumeroExterior = ((ML.Usuario)result.Object).Direccion.NumeroExterior;
                 int IdPais = usuario.Direccion.Colonia.Municipio.Estado.Pais.IdPais = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.Estado.Pais.IdPais;
                 int IdEstado = usuario.Direccion.Colonia.Municipio.Estado.IdEstado = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.Estado.IdEstado;
                 int IdMunicipio = usuario.Direccion.Colonia.Municipio.IdMunicipio = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.IdMunicipio;
@@ -101,39 +105,44 @@ namespace PL_MVC.Controllers
 
         [HttpPost] // Recibir los datos del formulario
         public ActionResult Form(ML.Usuario usuario, HttpPostedFileBase ImgUsuario)
-        {
-
-            usuario.Imagen = ConvertToBytes(ImgUsuario);
-
-            if (usuario.IdUsuario == 0) //add
             {
-                ML.Result result = BL.Usuario.AddLinq(usuario);
-
-                if (result.Correct)
-                {
-                    ViewBag.Mensaje = "Usuario registrado correctamente";
-                }
-                else
-                {
-                    ViewBag.Mensaje = "No se pudo registrar usuario. Error: " + result.ErrorMessage;
-                }
-                
-            }
-            else //update
+            if (ImgUsuario != null)
             {
-                ML.Result result = BL.Usuario.UpdateLinq(usuario);
-
-                if (result.Correct)
-                {
-                    //mediante el viewbag enviamos datos
-                    //del controlador -> hacia la vista
-                    ViewBag.Mensaje = "Usuario actualizado correctamente";
-                }
-                else
-                {
-                    ViewBag.Mensaje = "No se ha podido actualizar usuario. Error: " + result.ErrorMessage;
-                }
+                usuario.Imagen = ConvertToBytes(ImgUsuario);
             }
+
+                if (usuario.IdUsuario == 0) //add
+                {
+
+                usuario.IdUsuarioModificado = 2;
+
+                    ML.Result result = BL.Usuario.AddEF(usuario);
+
+                    if (result.Correct)
+                    {
+                        ViewBag.Mensaje = "Usuario registrado correctamente";
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "No se pudo registrar usuario. Error: " + result.ErrorMessage;
+                    }
+
+                }
+                else //update
+                {
+                    ML.Result result = BL.Usuario.UpdateEF(usuario);
+
+                    if (result.Correct)
+                    {
+                        //mediante el viewbag enviamos datos
+                        //del controlador -> hacia la vista
+                        ViewBag.Mensaje = "Usuario actualizado correctamente";
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "No se ha podido actualizar usuario. Error: " + result.ErrorMessage;
+                    }
+                }
             return PartialView("Modal");
         }
 

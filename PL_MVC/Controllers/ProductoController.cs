@@ -28,7 +28,7 @@ namespace PL_MVC.Controllers
 
         }
         [HttpGet] // Mostrar el formulario
-        public ActionResult Form(int? IdProducto)
+        public ActionResult Form(int? IdProducto)       
         {
             ML.Producto producto = new ML.Producto();
             ML.Result resultProveedor = BL.Proveedor.GetAllLinQ();
