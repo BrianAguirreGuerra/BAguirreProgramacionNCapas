@@ -28,7 +28,6 @@ namespace DL_EF1
         }
     
         public virtual DbSet<Rol> Rols { get; set; }
-        public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Departamento> Departamentoes { get; set; }
         public virtual DbSet<Producto> Productoes { get; set; }
@@ -38,6 +37,7 @@ namespace DL_EF1
         public virtual DbSet<Estado> Estadoes { get; set; }
         public virtual DbSet<Municipio> Municipios { get; set; }
         public virtual DbSet<Pai> Pais { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
     
         public virtual int UsuarioDelete(Nullable<int> idUsuario)
         {

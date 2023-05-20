@@ -59,7 +59,6 @@ namespace PL_MVC.Controllers
                 //Get By Id
                 ML.Result result = BL.Usuario.GetByIdLinq(IdUsuario.Value);
 
-                //unboxing
                 usuario.IdUsuario = ((ML.Usuario)result.Object).IdUsuario;
                 usuario.Nombre = ((ML.Usuario)result.Object).Nombre;
                 usuario.ApellidoPaterno = ((ML.Usuario)result.Object).ApellidoPaterno;
@@ -81,14 +80,13 @@ namespace PL_MVC.Controllers
                 int IdPais = usuario.Direccion.Colonia.Municipio.Estado.Pais.IdPais = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.Estado.Pais.IdPais;
                 int IdEstado = usuario.Direccion.Colonia.Municipio.Estado.IdEstado = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.Estado.IdEstado;
                 int IdMunicipio = usuario.Direccion.Colonia.Municipio.IdMunicipio = ((ML.Usuario)result.Object).Direccion.Colonia.Municipio.IdMunicipio;
-                int IdColonia = usuario.Direccion.Colonia.IdColonia = ((ML.Usuario)result.Object).Direccion.Colonia.IdColonia;
+                usuario.Direccion.Colonia.IdColonia = ((ML.Usuario)result.Object).Direccion.Colonia.IdColonia;
                 usuario.Imagen = ((ML.Usuario)result.Object).Imagen;
                 result = BL.Estado.GetByIdPais(IdPais);
                 if (result.Correct)
                 {
                     usuario.Direccion.Colonia.Municipio.Estado.Estados = result.Objects;
                     result = BL.Municipio.GetByIdEstado(IdEstado);
-                    
                     usuario.Direccion.Colonia.Municipio.Municipios = result.Objects;
                     result = BL.Colonia.GetByIdMunicipio(IdMunicipio);
                     usuario.Direccion.Colonia.Colonias = result.Objects;
@@ -173,7 +171,7 @@ namespace PL_MVC.Controllers
             return Json(resultMunicipio.Objects);
         }
 
-        public JsonResult GetColonias(int IdMunicipio)
+        public JsonResult GetColonia(int IdMunicipio)
         {
             ML.Result resultColonia = BL.Colonia.GetByIdMunicipio(IdMunicipio);
             return Json(resultColonia.Objects);

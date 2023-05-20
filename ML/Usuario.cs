@@ -15,7 +15,7 @@ namespace ML
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Sexo { get; set; }
+        public char Sexo { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
         public string CURP { get; set; }
@@ -26,6 +26,7 @@ namespace ML
         public string FechaCreacion { get; set; }
         public string FechaModificacion { get; set; }
         public byte[] Imagen { get; set; }
+        public bool Estatus { get; set; }
         public List<object> Usuarios { get; set; }
     }
 }

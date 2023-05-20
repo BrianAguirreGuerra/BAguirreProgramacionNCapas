@@ -144,10 +144,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Calendar.png" />
     <Content Include="Images\UserDefault.png" />
+    <Content Include="Images\UsuarioDefault.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Imagen\PreviewImage.js" />
+    <Content Include="Scripts\Productos\AreaDepartamento\GetDepartamento.js" />
     <Content Include="Scripts\PruebaUsuario.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -159,6 +163,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Usuario\Direccion\GetColonia.js" />
+    <Content Include="Scripts\Usuario\Direccion\GetEstado.js" />
+    <Content Include="Scripts\Usuario\Direccion\GetMunicipio.js" />
+    <Content Include="Scripts\Usuario\Fecha\datepicker.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

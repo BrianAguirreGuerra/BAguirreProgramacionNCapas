@@ -4,8 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/Scripts/jquery-3.4.1.js"></script>
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -80,7 +78,7 @@
                 }
                 else
                 {
-                    <img id="ImgProducto" style="width: 200px; height: 200px; position: absolute; top: 80%; left: 20%;" />
+                    <img id="Img" style="width: 200px; height: 200px; position: absolute; top: 80%; left: 20%;" />
                 }
 
                 <br />
@@ -96,41 +94,8 @@
             </div>
         </div>
     }
-
-    <script type="text/javascript">
-    $(document).ready(function () {
-        $("#ddlArea").change(function () {
-            $("#ddlDepartamento").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetDepartamento")',
-                dataType: 'json',
-                data: { IdArea: $("#ddlArea").val() },
-                success: function (departamentos) {
-                    $("#ddlDepartamento").append('<option value="0">' + 'Seleccione un Departamento' + '</option>');
-                    $.each(departamentos, function (i, departamentos) {
-                        $("#ddlDepartamento").append('<option value="'
-                            + departamentos.IdDepartamento + '">'
-                            + departamentos.Nombre + '</option>');
-                    });
-                },
-                error: function (ex) {
-                    alert('Failed.' + ex);
-                }
-            });
-        });
-    });
-    </script>
-
-    <script>
-        var PreviewImg = function (event) {
-            var output = document.getElementById('ImgProducto');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function () {
-                URL.revokeObjectURL(output.src) // free memory
-            }
-        };
-    </script>
-
 </div>
 
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/Productos/AreaDepartamento/GetDepartamento.js"></script>
+<script src="~/Scripts/Imagen/PreviewImage.js"></script>
