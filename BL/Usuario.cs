@@ -176,7 +176,7 @@ namespace BL
                                 usuario.UserName = lineas[4].ToString();
                                 usuario.Email = lineas[5].ToString();
                                 usuario.Password = lineas[6].ToString();
-                                usuario.Sexo = lineas[7].ToString();
+                                usuario.Sexo = char.Parse(lineas[7].ToString());
                                 usuario.Telefono = lineas[8].ToString();
                                 usuario.Celular = lineas[9].ToString();
                                 usuario.CURP = lineas[10].ToString();
@@ -237,7 +237,7 @@ namespace BL
                                 usuario.UserName = lineas[4].ToString();
                                 usuario.Email = lineas[5].ToString();
                                 usuario.Password = lineas[6].ToString();
-                                usuario.Sexo = lineas[7].ToString();
+                                usuario.Sexo = char.Parse(lineas[7].ToString());
                                 usuario.Telefono = lineas[8].ToString();
                                 usuario.Celular = lineas[9].ToString();
                                 usuario.CURP = lineas[10].ToString();
@@ -417,7 +417,21 @@ namespace BL
                     
                     ObjectParameter IdUsuario = new ObjectParameter("IdUsuario", typeof(int));
 
-                    var query = context.UsuarioAdd(IdUsuario, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.UserName, usuario.Email, usuario.Password, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.CURP, usuario.Rol.IdRol, usuario.IdUsuarioModificado, dt, usuario.Imagen);
+                    var query = context.UsuarioAdd(IdUsuario,
+                                                   usuario.Nombre,
+                                                   usuario.ApellidoPaterno,
+                                                   usuario.ApellidoMaterno,
+                                                   usuario.UserName,
+                                                   usuario.Email,
+                                                   usuario.Password,
+                                                   usuario.Sexo.ToString(),
+                                                   usuario.Telefono,
+                                                   usuario.Celular,
+                                                   usuario.CURP,
+                                                   usuario.Rol.IdRol,
+                                                   usuario.IdUsuarioModificado,
+                                                   dt,
+                                                   usuario.Imagen);
 
                     context.SaveChanges();
 
@@ -494,7 +508,7 @@ namespace BL
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
                     DateTime dt = DateTime.ParseExact(usuario.FechaNacimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    var updateResult = context.UsuarioUpdate(usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.UserName, usuario.Email, usuario.Password, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.CURP, usuario.Rol.IdRol, dt, usuario.Imagen, usuario.IdUsuario);
+                    var updateResult = context.UsuarioUpdate(usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.UserName, usuario.Email, usuario.Password, usuario.Sexo.ToString(), usuario.Telefono, usuario.Celular, usuario.CURP, usuario.Rol.IdRol, dt, usuario.Imagen, usuario.IdUsuario);
                     
                     if (updateResult >= 1)
                     {
@@ -549,7 +563,8 @@ namespace BL
                             usuario.UserName = obj.UserName;
                             usuario.Email = obj.Email;
                             usuario.Password = obj.Pass;
-                            usuario.Sexo = obj.Sexo;
+                            string sexo = obj.Sexo;
+                            usuario.Sexo = char.Parse(sexo.Replace(" ",""));
                             usuario.Telefono = obj.Telefono;
                             usuario.Celular = (obj.Celular != null) ? obj.Celular : "0";
                             usuario.CURP = (obj.CURP != null) ? obj.CURP : "0";
@@ -562,6 +577,7 @@ namespace BL
                             usuario.IdUsuarioModificado = (obj.IdUsuarioModificado != null) ? obj.IdUsuarioModificado.Value : int.Parse("0");
                             usuario.FechaCreacion = (obj.FechaCreacion != null) ? obj.FechaCreacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
                             usuario.FechaModificacion = (obj.FechaModificacion != null) ? obj.FechaModificacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
+                            usuario.Estatus = (obj.Estatus != null) ? obj.Estatus.Value : bool.Parse("0");
                             result.Objects.Add(usuario);
                         }
 
@@ -604,7 +620,7 @@ namespace BL
                             usuario.UserName = usuarios1.UserName;
                             usuario.Email = usuarios1.Email;
                             usuario.Password = usuarios1.Pass;
-                            usuario.Sexo = usuarios1.Sexo;
+                            usuario.Sexo = char.Parse(usuarios1.Sexo);
                             usuario.Telefono = usuarios1.Telefono;
                             usuario.Celular = usuarios1.Celular;
                             usuario.CURP = usuarios1.CURP;
@@ -679,6 +695,36 @@ namespace BL
 
         }
 
+        public static ML.Result EstatusUpdate(int IdUsuario, bool Estatus)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
+                {
+                    var usuarios1 = context.EstatusUpdate(Estatus, IdUsuario);
+
+                    if (usuarios1 >= 1)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se actualizo el estatus.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+
+            }
+            return result;
+        }
+
         //Entity Framework -> En Linq
         public static ML.Result AddLinq(ML.Usuario usuario)
         {
@@ -697,7 +743,7 @@ namespace BL
                     usuarioDL.UserName = usuario.UserName;
                     usuarioDL.Email = usuario.Email;
                     usuarioDL.Pass = usuario.Password;
-                    usuarioDL.Sexo = usuario.Sexo;
+                    usuarioDL.Sexo = usuario.Sexo.ToString();
                     usuarioDL.Telefono= usuario.Telefono;
                     usuarioDL.Celular= usuario.Celular;
                     usuarioDL.CURP = usuario.CURP;
@@ -752,7 +798,7 @@ namespace BL
                         query.UserName = usuario.UserName;
                         query.Email = usuario.Email;
                         query.Pass = usuario.Password;
-                        query.Sexo = usuario.Sexo;
+                        query.Sexo = usuario.Sexo.ToString();
                         query.Telefono = usuario.Telefono;
                         query.Celular = usuario.Celular;
                         query.CURP = usuario.CURP;
@@ -851,7 +897,7 @@ namespace BL
                             usuariolista.UserName= obj.UserName;
                             usuariolista.Email = obj.Email;
                             usuariolista.Password= obj.Password;
-                            usuariolista.Sexo= obj.Sexo;
+                            usuariolista.Sexo= char.Parse(obj.Sexo);
                             usuariolista.Telefono= obj.Telefono;
                             usuariolista.Celular= (obj.Celular != null) ? obj.Celular : "0";
                             usuariolista.CURP= (obj.CURP != null) ? obj.CURP : "0";
@@ -908,7 +954,8 @@ namespace BL
                         usuariolista.UserName = query.UserName;
                         usuariolista.Email = query.Email;
                         usuariolista.Password = query.Password;
-                        usuariolista.Sexo = query.Sexo;
+                        string sexo = query.Sexo;
+                        usuariolista.Sexo = char.Parse(sexo.Replace(" ", ""));
                         usuariolista.Telefono = query.Telefono;
                         usuariolista.Celular = (query.Celular != null) ? query.Celular : "0";
                         usuariolista.CURP = (query.CURP != null) ? query.CURP : "0";

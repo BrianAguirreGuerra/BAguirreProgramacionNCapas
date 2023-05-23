@@ -20,7 +20,7 @@ namespace DL_EF1
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Pass { get; set; }
-        public char Sexo { get; set; }
+        public string Sexo { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
         public string CURP { get; set; }
@@ -29,6 +29,7 @@ namespace DL_EF1
         public byte[] Imagen { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<bool> Estatus { get; set; }
         public Nullable<byte> IdRol { get; set; }
         public string RolNombre { get; set; }
     }

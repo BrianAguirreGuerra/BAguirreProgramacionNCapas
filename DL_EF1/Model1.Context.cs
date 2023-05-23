@@ -263,11 +263,6 @@ namespace DL_EF1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetById_Result>("ProductoGetById", idProductoParameter);
         }
     
-        public virtual ObjectResult<UsuarioGetAll_Result> UsuarioGetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetAll_Result>("UsuarioGetAll");
-        }
-    
         public virtual ObjectResult<GetByIdArea_Result> GetByIdArea(Nullable<int> idArea)
         {
             var idAreaParameter = idArea.HasValue ?
@@ -375,6 +370,24 @@ namespace DL_EF1
                 new ObjectParameter("IdUsuario", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UsuarioUpdate", nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, userNameParameter, emailParameter, passParameter, sexoParameter, telefonoParameter, celularParameter, curpParameter, idRolParameter, fechaNacimientoParameter, imagenParameter, idUsuarioParameter);
+        }
+    
+        public virtual int EstatusUpdate(Nullable<bool> estatus, Nullable<int> idUsuario)
+        {
+            var estatusParameter = estatus.HasValue ?
+                new ObjectParameter("Estatus", estatus) :
+                new ObjectParameter("Estatus", typeof(bool));
+    
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EstatusUpdate", estatusParameter, idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<UsuarioGetAll_Result> UsuarioGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetAll_Result>("UsuarioGetAll");
         }
     }
 }

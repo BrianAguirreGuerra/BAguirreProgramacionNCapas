@@ -184,5 +184,11 @@ namespace PL_MVC.Controllers
             imgBytes = reader.ReadBytes((int)ImgUsuario.ContentLength);
             return imgBytes;
         }
+
+        public JsonResult UpdateStatus(int IdUsuario, bool Estatus)
+        {
+            ML.Result resultEstatus = BL.Usuario.EstatusUpdate(IdUsuario, Estatus);
+            return Json(resultEstatus);
+        }
     }
 }

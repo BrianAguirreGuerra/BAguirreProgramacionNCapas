@@ -145,7 +145,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Calendar.png" />
-    <Content Include="Images\UserDefault.png" />
+    <Content Include="Images\ProductoDefault.png" />
+    <Content Include="Images\Usuario.png" />
     <Content Include="Images\UsuarioDefault.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -163,10 +164,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\Usuario\Direccion\GetColonia.js" />
-    <Content Include="Scripts\Usuario\Direccion\GetEstado.js" />
-    <Content Include="Scripts\Usuario\Direccion\GetMunicipio.js" />
-    <Content Include="Scripts\Usuario\Fecha\datepicker.js" />
+    <Content Include="Scripts\Usuario\Form\Direccion\GetColonia.js" />
+    <Content Include="Scripts\Usuario\Form\Direccion\GetEstado.js" />
+    <Content Include="Scripts\Usuario\Form\Direccion\GetMunicipio.js" />
+    <Content Include="Scripts\Usuario\Form\ValidarEmail.js" />
+    <Content Include="Scripts\Usuario\Form\datepicker.js" />
+    <Content Include="Scripts\Usuario\Form\ValidarSoloLetras.js" />
+    <Content Include="Scripts\Usuario\Form\ValidarSoloNumeros.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -65,7 +65,7 @@
             </div>
             <div class="col-md-3">
                 @Html.Label("Descripcion")
-                @Html.TextBoxFor(model => Model.Descripcion, new { @class = "form-control" })
+                @Html.TextAreaFor(model => Model.Descripcion, new { @class = "form-control" })
                 <br />
             </div>
             <div class="col-md-3">
@@ -78,7 +78,7 @@
                 }
                 else
                 {
-                    <img id="Img" style="width: 200px; height: 200px; position: absolute; top: 80%; left: 20%;" />
+                    <img id="Img" src="~/Images/ProductoDefault.png" style="width: 200px; height: 200px; position: absolute; top: 80%; left: 20%;" />
                 }
 
                 <br />

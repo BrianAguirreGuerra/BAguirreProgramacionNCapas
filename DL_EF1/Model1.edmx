@@ -254,6 +254,10 @@
         <Function Name="EstadoGetByIdPais" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPais" Type="int" Mode="In" />
         </Function>
+        <Function Name="EstatusUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Estatus" Type="bit" Mode="In" />
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetAllPais" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetByIdArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdArea" Type="int" Mode="In" />
@@ -499,7 +503,6 @@
           <FunctionImport Name="ProductoGetById" ReturnType="Collection(BAguirreProgramacionNCapasModel.ProductoGetById_Result)">
           <Parameter Name="IdProducto" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(BAguirreProgramacionNCapasModel.UsuarioGetAll_Result)" />
           <FunctionImport Name="GetByIdArea" ReturnType="Collection(BAguirreProgramacionNCapasModel.GetByIdArea_Result)">
           <Parameter Name="IdArea" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -543,6 +546,11 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Usuario1" EntitySet="Usuarios" />
           </AssociationSet>
+          <FunctionImport Name="EstatusUpdate">
+            <Parameter Name="Estatus" Mode="In" Type="Boolean" />
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(BAguirreProgramacionNCapasModel.UsuarioGetAll_Result)" />
         </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -764,26 +772,6 @@
           <Property Type="Binary" Name="Imagen" Nullable="true" />
           <Property Type="Int32" Name="IdArea" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="UsuarioGetAll_Result">
-          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
-          <Property Type="String" Name="UsuarioNombre" Nullable="false" MaxLength="25" />
-          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
-          <Property Type="String" Name="Pass" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
-          <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="Celular" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="CURP" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="IdUsuarioModificado" Nullable="true" />
-          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
-          <Property Type="Binary" Name="Imagen" Nullable="true" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="FechaModificacion" Nullable="true" Precision="23" />
-          <Property Type="Byte" Name="IdRol" Nullable="true" />
-          <Property Type="String" Name="RolNombre" Nullable="false" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="GetByIdArea_Result">
           <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
           <Property Type="String" Name="NombreDepartamento" Nullable="false" MaxLength="100" />
@@ -877,6 +865,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="UsuarioGetAll_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UsuarioNombre" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+          <Property Type="String" Name="Pass" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Celular" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CURP" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdUsuarioModificado" Nullable="true" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="Binary" Name="Imagen" Nullable="true" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FechaModificacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Estatus" Nullable="true" />
+          <Property Type="Byte" Name="IdRol" Nullable="true" />
+          <Property Type="String" Name="RolNombre" Nullable="false" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1048,30 +1057,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="UsuarioGetAll" FunctionName="BAguirreProgramacionNCapasModel.Store.UsuarioGetAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.UsuarioGetAll_Result">
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-                <ScalarProperty Name="UsuarioNombre" ColumnName="UsuarioNombre" />
-                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
-                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Pass" ColumnName="Pass" />
-                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
-                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-                <ScalarProperty Name="Celular" ColumnName="Celular" />
-                <ScalarProperty Name="CURP" ColumnName="CURP" />
-                <ScalarProperty Name="IdUsuarioModificado" ColumnName="IdUsuarioModificado" />
-                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-                <ScalarProperty Name="RolNombre" ColumnName="RolNombre" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetByIdArea" FunctionName="BAguirreProgramacionNCapasModel.Store.GetByIdArea">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.GetByIdArea_Result">
@@ -1140,6 +1125,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="EstatusUpdate" FunctionName="BAguirreProgramacionNCapasModel.Store.EstatusUpdate" />
+          <FunctionImportMapping FunctionImportName="UsuarioGetAll" FunctionName="BAguirreProgramacionNCapasModel.Store.UsuarioGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BAguirreProgramacionNCapasModel.UsuarioGetAll_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UsuarioNombre" ColumnName="UsuarioNombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IdUsuarioModificado" ColumnName="IdUsuarioModificado" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="RolNombre" ColumnName="RolNombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
