@@ -66,7 +66,7 @@ namespace PL_MVC.Controllers
 
         }
 
-        [HttpPost] // Recibir los datos del formulario
+        [HttpPost] 
         public ActionResult Form(ML.Producto producto, HttpPostedFileBase ImgProducto)
         {
             producto.Imagen = ConvertToBytes(ImgProducto);
