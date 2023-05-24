@@ -7,7 +7,7 @@
             url: url,
             dataType: 'json',
             data: { IdMunicipio: $("#ddlMunicipio").val() },
-            success: function (resultEstatus) {
+            success: function (colonias) {
                 $("#ddlColonia").append('<option value="0">' + 'Seleccione un Municipio' + '</option>');
                 $.each(colonias, function (i, colonias) {
                     $("#ddlColonia").append('<option value="'

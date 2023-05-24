@@ -84,25 +84,25 @@
                 <table class="table table-striped table-hover table-responsive">
                     <thead>
                         <tr>
-                            <td align="center">Editar</td>
+                            <td align="center">@Html.Label("Editar")</td>
                             <td class="hidden">IdUsuario</td>
-                            <td align="center">UserName</td>
-                            <td align="center">Nombre</td>
-                            <td align="center">Email</td>
-                            <td align="center" class="hidden">Password</td>
-                            <td align="center">Sexo</td>
-                            <td align="center">Telefono</td>
-                            <td align="center">Celular</td>
-                            <td align="center">CURP</td>
-                            <td align="center">Fecha de Nacimiento</td>
-                            <td align="center" class="hidden">Id Rol</td>
-                            <td align="center">Rol</td>
-                            <td align="center">Imagen</td>
-                            <td align="center">Estatus</td>
-                            <td align="center">Id Usuario Modificado</td>
-                            <td align="center">Fecha Creacion</td>
-                            <td align="center">Fecha Modificacion</td>
-                            <td align="center">Eliminar</td>
+                            <td align="center">@Html.LabelFor(model => Model.UserName)</td>
+                            <td align="center">@Html.LabelFor(model => Model.Nombre)</td>
+                            <td align="center">@Html.LabelFor(model => Model.Email)</td>
+                            <td align="center" class="hidden">@Html.LabelFor(model => Model.Password)</td>
+                            <td align="center">@Html.LabelFor(model => Model.Sexo)</td>
+                            <td align="center">@Html.LabelFor(model => Model.Telefono)</td>
+                            <td align="center">@Html.LabelFor(model => Model.Celular)</td>
+                            <td align="center">@Html.LabelFor(model => Model.CURP)</td>
+                            <td align="center">@Html.LabelFor(model => Model.FechaNacimiento)</td>
+                            <td align="center" class="hidden">@Html.LabelFor(model => Model.Rol.IdRol)</td>
+                            <td align="center">@Html.LabelFor(model => Model.Rol.Nombre)</td>
+                            <td align="center">@Html.LabelFor(model => Model.Imagen)</td>
+                            <td align="center">@Html.LabelFor(model => Model.Estatus)</td>
+                            <td align="center">@Html.LabelFor(model => Model.IdUsuarioModificado)</td>
+                            <td align="center">@Html.LabelFor(model => Model.FechaCreacion)</td>
+                            <td align="center">@Html.LabelFor(model => Model.FechaModificacion)</td>
+                            <td align="center">@Html.Label("Eliminar")</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -169,25 +169,4 @@
     }
 </div>
 
-<script>
-    function UpdateStatus(IdUsuario, estatus) {
-        var Estatus = estatus.checked
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("UpdateStatus")',
-                dataType: 'json',
-                data: { IdUsuario, Estatus },
-                success: function (resultEstatus) {
-                    if (resultEstatus.Correct == true) {
-                        alert('Se ha actualizado correctamente el status del usuario')
-                    }
-                    else {
-                        alert('No se pudo actualizar correctamente el status' + resultEstatus.ErrorMessage)
-                    }
-                },
-                error: function (ex) {
-                    alert('Failed.' + ex);
-                }
-            });
-        }
-</script>
+<script src="~/Scripts/Usuario/UpdateStatus.js"></script>

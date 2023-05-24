@@ -4,67 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-    }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #9a9696;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-    input:checked + .slider {
-        background-color: #0ebe14;
-    }
-
-    input:focus + .slider {
-        box-shadow: 0 0 1px #0ebe14;
-    }
-
-    input:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-    }
-
-    .slider.round {
-        border-radius: 34px;
-    }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
-</style>
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -88,71 +27,78 @@
 
         <div class="row">
             <div class="col-md-3">
-                @Html.Label("Nombre")
-                @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control", oninput = "validarInput(this)" })
+                @Html.LabelFor(model => Model.Nombre)
+                @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control", @id="txtNombre", oninput = "validarInput(this)" })
+                @Html.ValidationMessageFor(model => Model.Nombre, null, new { @class = "text-danger", @id= "Nombre-error" })
             </div>
             <div class="col-md-3">
-                @Html.Label("Apellido Paterno")
-                @Html.TextBoxFor(model => Model.ApellidoPaterno, new { @class = "form-control", oninput = "validarInput(this)" })
+                @Html.LabelFor(model => Model.ApellidoPaterno)
+                @Html.TextBoxFor(model => Model.ApellidoPaterno, new { @class = "form-control", @id = "txtApellidoPaterno", oninput = "validarInput(this)" })
+                @Html.ValidationMessageFor(model => Model.ApellidoPaterno, null, new { @class = "text-danger", @id = "ApellidoPaterno-error" })
             </div>
             <div class="col-md-3">
-                @Html.Label("Apellido Materno")
-                @Html.TextBoxFor(model => Model.ApellidoMaterno, new { @class = "form-control", oninput = "validarInput(this)" })
+                @Html.LabelFor(model => Model.ApellidoMaterno)
+                @Html.TextBoxFor(model => Model.ApellidoMaterno, new { @class = "form-control", @id = "txtApellidoMaterno", oninput = "validarInput(this)" })
+                @Html.ValidationMessageFor(model => Model.ApellidoMaterno, null, new { @class = "text-danger", @id = "ApellidoMaterno-error" })
             </div>
             <div class="col-md-3">
-                @Html.Label("UserName")
+                @Html.LabelFor(model => Model.UserName)
                 @Html.TextBoxFor(model => Model.UserName, new { @class = "form-control" })
             </div>
         </div>
         <br />
         <div class="row">
             <div class="col-md-3">
-                @Html.Label("Email")
-                @Html.TextBoxFor(model => Model.Email, new { @class = "form-control", onblur = "validarEmail(this)" })
+                @Html.LabelFor(model => Model.Email)
+                @Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @id = "txtEmail",onblur = "validarEmail(this)" })
+                @Html.ValidationMessageFor(model => Model.CURP, null, new { @class = "text-danger", @id = "Email-error" })
             </div>
             <div class="col-md-3">
-                @Html.Label("Password")
+                @Html.LabelFor(model => Model.Password)
                 @Html.TextBoxFor(model => Model.Password, new { @class = "form-control" })
             </div>
             <div class="col-md-3">
-                @Html.Label("Sexo")
+                @Html.LabelFor(model => Model.Sexo)
                 <br />
                 @Html.RadioButtonFor(model => Model.Sexo, "H") Hombre
                 @Html.RadioButtonFor(model => Model.Sexo, "M") Mujer
             </div>
             <div class="col-md-3">
-                @Html.Label("Telefono")
-                @Html.TextBoxFor(model => Model.Telefono, new { @class = "form-control", oninput = "validarNumero(this)" })
+                @Html.LabelFor(model => Model.Telefono)
+                @Html.TextBoxFor(model => Model.Telefono, new { @class = "form-control", @id = "txtTelefono", oninput = "validarNumero(this)" })
+                @Html.ValidationMessageFor(model => Model.Telefono, null, new { @class = "text-danger", @id = "Telefono-error" })
             </div>
         </div>
         <br />
         <div class="row">
             <div class="col-md-3">
-                @Html.Label("Celular")
-                @Html.TextBoxFor(model => Model.Celular, new { @class = "form-control", oninput = "validarNumero(this)" })
+                @Html.LabelFor(model => Model.Celular)
+                @Html.TextBoxFor(model => Model.Celular, new { @class = "form-control", @id = "txtCelular", oninput = "validarNumero(this)" })
+                @Html.ValidationMessageFor(model => Model.Celular, null, new { @class = "text-danger", @id = "Celular-error" })
             </div>
             <div class="col-md-3">
-                @Html.Label("CURP")
-                @Html.TextBoxFor(model => Model.CURP, new { @class = "form-control" })
+                @Html.LabelFor(model => Model.CURP)
+                @Html.TextBoxFor(model => Model.CURP, new { @class = "form-control curp-input", @id = "txtCURP"})
+                @Html.ValidationMessageFor(model => Model.CURP, null, new { @class = "text-danger", @id = "CURP-error" })
             </div>
             <div class="col-md-3 form-inline">
-                @Html.Label("Fecha de Nacimiento")
+                @Html.LabelFor(model => Model.FechaNacimiento)
                 @Html.TextBoxFor(model => Model.FechaNacimiento, new { @class = "form-control", @id = "txtFechaNacimiento" })
             </div>
             <div class="col-md-3">
-                @Html.Label("Rol Usuario")
+                @Html.LabelFor(model => Model.Rol.Nombre)
                 @Html.DropDownListFor(model => Model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Selecciona un Rol", new { @class = "form-control" })
                 <br />
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                @Html.Label("Pais")
+                @Html.LabelFor(model => Model.Direccion.Colonia.Municipio.Estado.Pais.Nombre)
                 @Html.DropDownListFor(model => Model.Direccion.Colonia.Municipio.Estado.Pais.IdPais, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Pais.Paises, "IdPais", "Nombre"), "Selecciona un Pais", new { @id = "ddlPais", @class = "form-control" })
 
             </div>
             <div class="col-md-3">
-                @Html.Label("Estado")
+                @Html.LabelFor(model => Model.Direccion.Colonia.Municipio.Estado.Nombre)
                 @if (Model.Direccion.Colonia.Municipio.Estado.Estados != null)
                 {
                     @Html.DropDownListFor(model => Model.Direccion.Colonia.Municipio.Estado.IdEstado, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Estados, "IdEstado", "Nombre"), "Selecciona un Estado", new { @class = "form-control", @id = "ddlEstado" })
@@ -163,7 +109,7 @@
                 }
             </div>
             <div class="col-md-3">
-                @Html.Label("Municipio")
+                @Html.LabelFor(model => Model.Direccion.Colonia.Municipio.Nombre)
                 @if (Model.Direccion.Colonia.Municipio.Municipios != null)
                 {
                     @Html.DropDownListFor(model => Model.Direccion.Colonia.Municipio.IdMunicipio, new SelectList(Model.Direccion.Colonia.Municipio.Municipios, "IdMunicipio", "Nombre"), "Selecciona un Municipio", new { @class = "form-control", @id = "ddlMunicipio" })
@@ -175,7 +121,7 @@
                 <br />
             </div>
             <div class="col-md-3">
-                @Html.Label("Colonia")
+                @Html.LabelFor(model => Model.Direccion.Colonia.Nombre)
                 @if (Model.Direccion.Colonia.Colonias != null)
                 {
                     @Html.DropDownListFor(model => Model.Direccion.Colonia.IdColonia, new SelectList(Model.Direccion.Colonia.Colonias, "IdColonia", "Nombre"), "Selecciona una Colonia", new { @class = "form-control", @id = "ddlColonia" })
@@ -189,20 +135,20 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                @Html.Label("Calle")
+                @Html.LabelFor(model => Model.Direccion.Calle)
                 @Html.TextBoxFor(model => Model.Direccion.Calle, new { @class = "form-control" })
             </div>
             <div class="col-md-3">
-                @Html.Label("Número Interior")
+                @Html.LabelFor(model => Model.Direccion.NumeroInterior)
                 @Html.TextBoxFor(model => Model.Direccion.NumeroInterior, new { @class = "form-control" })
             </div>
             <div class="col-md-3">
-                @Html.Label("Número Exterior")
+                @Html.LabelFor(model => Model.Direccion.NumeroExterior)
                 @Html.TextBoxFor(model => Model.Direccion.NumeroExterior, new { @class = "form-control" })
                 <br />
             </div>
             <div class="col-md-3">
-                @Html.Label("Foto")
+                @Html.LabelFor(model => Model.Imagen)
                 <input type="file" accept="image/*" id="FuImgUsuario" onchange="PreviewImg(event);" name="ImgUsuario" />
                 <br />
 
@@ -236,10 +182,8 @@
 <script src="~/Scripts/Usuario/Form/Direccion/GetMunicipio.js"></script>
 <script src="~/Scripts/Usuario/Form/Direccion/GetColonia.js"></script>
 <script src="~/Scripts/Imagen/PreviewImage.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
-<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+<link href="~/Content/jquery-ui.css" rel="Stylesheet" type="text/css" />
 <script src="~/Scripts/Usuario/Form/datepicker.js"></script>
-<script src="~/Scripts/Usuario/Form/ValidarSoloLetras.js"></script>
-<script src="~/Scripts/Usuario/Form/ValidarEmail.js"></script>
-<script src="~/Scripts/Usuario/Form/ValidarSoloNumeros.js"></script>
+<script src="~/Scripts/Usuario/Form/ValidacionesFormUsuario.js"></script>

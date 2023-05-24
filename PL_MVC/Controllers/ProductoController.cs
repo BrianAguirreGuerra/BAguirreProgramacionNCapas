@@ -71,38 +71,50 @@ namespace PL_MVC.Controllers
         {
             producto.Imagen = ConvertToBytes(ImgProducto);
 
-            if (producto.IdProducto == 0) //add
+            if (ModelState.IsValid)
             {
-                ML.Result result = BL.Producto.AddLinq(producto);
-
-                if (result.Correct)
+                if (producto.IdProducto == 0) //add
                 {
-                    //mediante el viewbag enviamos datos
-                    //del controlador -> hacia la vista
-                    ViewBag.Mensaje = "Producto registrado correctamente";
-                }
-                else
-                {
-                    ViewBag.Mensaje = "No se pudo registrar producto. Error: " + result.ErrorMessage;
-                }
+                    ML.Result result = BL.Producto.AddLinq(producto);
 
+                    if (result.Correct)
+                    {
+                        ViewBag.Mensaje = "Producto registrado correctamente";
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "No se pudo registrar producto. Error: " + result.ErrorMessage;
+                    }
+
+                }
+                else //update
+                {
+                    ML.Result result = BL.Producto.UpdateLinq(producto);
+
+                    if (result.Correct)
+                    {
+                        //mediante el viewbag enviamos datos
+                        //del controlador -> hacia la vista
+                        ViewBag.Mensaje = "Producto actualizado correctamente";
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "No se ha podido actualizar producto. Error: " + result.ErrorMessage;
+                    }
+                }
+                return PartialView("Modal");
             }
-            else //update
-            {
-                ML.Result result = BL.Producto.UpdateLinq(producto);
 
-                if (result.Correct)
-                {
-                    //mediante el viewbag enviamos datos
-                    //del controlador -> hacia la vista
-                    ViewBag.Mensaje = "Producto actualizado correctamente";
-                }
-                else
-                {
-                    ViewBag.Mensaje = "No se ha podido actualizar producto. Error: " + result.ErrorMessage;
-                }
-            }
-            return PartialView("Modal");
+            ML.Result resultProveedor = BL.Proveedor.GetAllLinQ();
+            producto.Proveedor = new ML.Proveedor();
+
+            producto.Departamento = new ML.Departamento();
+            
+            producto.Proveedor.Proveedores = resultProveedor.Objects;
+            ML.Result resultArea = BL.Area.GetAllLinQ();
+            producto.Departamento.Area = new ML.Area();
+            producto.Departamento.Area.Areas = resultArea.Objects;
+            return View(producto);
         }
 
         public ActionResult Delete(int IdProducto)
@@ -110,11 +122,11 @@ namespace PL_MVC.Controllers
             ML.Result result = BL.Producto.DeleteLinq(IdProducto);
             if (result.Correct)
             {
-                ViewBag.Mensaje = "Se ha eliminado correctamente el usuario";
+                ViewBag.Mensaje = "Se ha eliminado correctamente el producto";
             }
             else
             {
-                ViewBag.Mensaje = "No se ha podido eliminar el usuario. Error: " + result.ErrorMessage;
+                ViewBag.Mensaje = "No se ha podido eliminar el producto. Error: " + result.ErrorMessage;
             }
 
             return PartialView("Modal");

@@ -140,6 +140,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -152,6 +153,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Imagen\PreviewImage.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\Productos\AreaDepartamento\GetDepartamento.js" />
     <Content Include="Scripts\PruebaUsuario.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -167,10 +170,9 @@
     <Content Include="Scripts\Usuario\Form\Direccion\GetColonia.js" />
     <Content Include="Scripts\Usuario\Form\Direccion\GetEstado.js" />
     <Content Include="Scripts\Usuario\Form\Direccion\GetMunicipio.js" />
-    <Content Include="Scripts\Usuario\Form\ValidarEmail.js" />
+    <Content Include="Scripts\Usuario\Form\ValidacionesFormUsuario.js" />
     <Content Include="Scripts\Usuario\Form\datepicker.js" />
-    <Content Include="Scripts\Usuario\Form\ValidarSoloLetras.js" />
-    <Content Include="Scripts\Usuario\Form\ValidarSoloNumeros.js" />
+    <Content Include="Scripts\Usuario\UpdateStatus.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

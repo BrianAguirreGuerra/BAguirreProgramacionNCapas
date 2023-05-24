@@ -818,7 +818,7 @@ namespace BL
                         else
                         {
                             result.Correct = false;
-                            result.ErrorMessage = "El producto no fue insertado";
+                            result.ErrorMessage = "El usuario no fue actualizado";
                         }
                     }
 
@@ -840,35 +840,44 @@ namespace BL
         public static ML.Result DeleteLinq(int IdUsuario)
         {
             Result result = new Result();
-
-            try
+            ML.Result resultDireccion = BL.Direccion.Delete(IdUsuario);
+            if (resultDireccion.Correct)
             {
-                using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
+                try
                 {
-                    var query = (from Usuario in context.Usuarios
-                                 where Usuario.IdUsuario == IdUsuario
-                                 select Usuario).SingleOrDefault();
-
-                    context.Usuarios.Remove(query);
-                    int rowsAffected = context.SaveChanges();
-
-                    if (rowsAffected > 0)
+                    using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                     {
-                        result.Correct = true;
-                    }
-                    else
-                    {
-                        result.Correct = false;
-                        result.ErrorMessage = "El producto no fue insertado";
+                        var query = (from Usuario in context.Usuarios
+                                     where Usuario.IdUsuario == IdUsuario
+                                     select Usuario).SingleOrDefault();
+
+                        context.Usuarios.Remove(query);
+                        int rowsAffected = context.SaveChanges();
+
+                        if (rowsAffected > 0)
+                        {
+                            result.Correct = true;
+                        }
+                        else
+                        {
+                            result.Correct = false;
+                            result.ErrorMessage = "El usuario no fue eliminado";
+                        }
                     }
                 }
-            }
 
-            catch (Exception ex)
+                catch (Exception ex)
+                {
+                    result.Correct = false;
+                    result.ErrorMessage = ex.Message;
+                }
+            }
+            else
             {
                 result.Correct = false;
-                result.ErrorMessage = ex.Message;
+                result.ErrorMessage = "El usuario no fue eliminado";
             }
+
 
             return result;
         }

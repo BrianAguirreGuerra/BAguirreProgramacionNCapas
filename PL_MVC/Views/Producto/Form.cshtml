@@ -1,4 +1,5 @@
 ﻿@model ML.Producto
+@using System.ComponentModel.DataAnnotations
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,34 +27,35 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                @Html.Label("Nombre")
-                @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control" })
+                @Html.LabelFor(model => model.Nombre)
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                 <br />
             </div>
             <div class="col-md-3">
-                @Html.Label("Precio Unitario")
+                @Html.LabelFor(model => model.PrecioUnitario)
                 @Html.TextBoxFor(model => Model.PrecioUnitario, new { @class = "form-control" })
                 <br />
             </div>
             <div class="col-md-3">
-                @Html.Label("Stock")
+                @Html.LabelFor(model => model.Stock)
                 @Html.TextBoxFor(model => Model.Stock, new { @class = "form-control" })
                 <br />
             </div>
             <div class="col-md-3">
-                @Html.Label("Proveedor")
+                @Html.LabelFor(model => model.Proveedor.Nombre)
                 @Html.DropDownListFor(model => Model.Proveedor.IdProveedor, new SelectList(Model.Proveedor.Proveedores, "IdProveedor", "Nombre"), "Selecciona un proveedor", new { @class = "form-control" })
                 <br />
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                @Html.Label("Area")
+                @Html.LabelFor(model => model.Departamento.Area.Nombre)
                 @Html.DropDownListFor(model => Model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una Area", new { @id = "ddlArea", @class = "form-control" })
 
             </div>
             <div class="col-md-3">
-                @Html.Label("Departamento")
+                @Html.LabelFor(model => model.Departamento.Nombre)
                 @if (Model.Departamento.Departamentos != null)
                 {
                     @Html.DropDownListFor(model => Model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona un Departamento", new { @class = "form-control", @id = "ddlDepartamento" })
@@ -64,12 +66,12 @@
                 }
             </div>
             <div class="col-md-3">
-                @Html.Label("Descripcion")
+                @Html.LabelFor(model => model.Descripcion)
                 @Html.TextAreaFor(model => Model.Descripcion, new { @class = "form-control" })
                 <br />
             </div>
             <div class="col-md-3">
-                @Html.Label("Foto")
+                @Html.LabelFor(model => model.Imagen)
                 <input type="file" accept="image/*" id="FuImgProducto" onchange="PreviewImg(event);" name="ImgProducto" />
                 @if (Model.Imagen != null)
                 {

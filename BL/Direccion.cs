@@ -1,4 +1,5 @@
-﻿using ML;
+﻿using DL_EF1;
+using ML;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -50,7 +51,7 @@ namespace BL
             return result;
         }
 
-        public static Result Update(ML.Usuario usuario)
+        public static ML.Result Update(ML.Usuario usuario)
         {
             Result result = new Result();
             try
@@ -76,6 +77,42 @@ namespace BL
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
             }
+            return result;
+        }
+
+        public static ML.Result Delete(int IdUsuario)
+        {
+            Result result = new Result();
+
+            try
+            {
+                using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
+                {
+                    var query = (from direccion in context.Direccions
+                                 where direccion.IdUsuario == IdUsuario
+                                 select direccion).SingleOrDefault();
+
+                    context.Direccions.Remove(query);
+                    int rowsAffected = context.SaveChanges();
+
+                    if (rowsAffected > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "La direccion no pudo ser eliminada";
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+
             return result;
         }
     }
