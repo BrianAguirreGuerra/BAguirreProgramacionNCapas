@@ -28,18 +28,29 @@
         <div class="row">
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Nombre)
-                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-shopping-cart"></span></span>
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                </div>
                 @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                 <br />
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.PrecioUnitario)
-                @Html.TextBoxFor(model => Model.PrecioUnitario, new { @class = "form-control" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
+                    @Html.TextBoxFor(model => Model.PrecioUnitario, "{0:#.#}", new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(model => model.PrecioUnitario, "", new { @class = "text-danger" })
                 <br />
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Stock)
-                @Html.TextBoxFor(model => Model.Stock, new { @class = "form-control" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-inbox"></span></span>
+                    @Html.TextBoxFor(model => Model.Stock, "{0:#.#}", new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
                 <br />
             </div>
             <div class="col-md-3">
@@ -72,7 +83,10 @@
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Imagen)
-                <input type="file" accept="image/*" id="FuImgProducto" onchange="PreviewImg(event);" name="ImgProducto" />
+                <input type="file" accept="image/*" id="FuImgProducto" onchange="validarArchivo(event);" name="ImgProducto" />
+                @Html.ValidationMessageFor(model => Model.Imagen, null, new { @class = "text-danger", @id = "Imagen-error" })
+                <br />
+                <br />
                 @if (Model.Imagen != null)
                 {
                     @Html.HiddenFor(model => Model.Imagen)

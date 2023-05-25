@@ -29,6 +29,9 @@ namespace ML
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
+        [Display(Name = "Confirmar Contraseña")]
+        public string ConfirmarPassword { get; set; }
+
         [Display(Name = "Sexo")]
         public char Sexo { get; set; }
 

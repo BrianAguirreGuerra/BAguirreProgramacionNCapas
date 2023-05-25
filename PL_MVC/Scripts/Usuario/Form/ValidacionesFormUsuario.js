@@ -109,16 +109,88 @@ curpInput.on('input', function () {
 
 
 
-function validarEmail(input) {
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
-        var errorMessage = 'Por favor, ingrese una dirección de correo electrónico válida.';
-        var errorElementSet = $('#Email-error');
+// Validar contraseña al perder el foco
+function validarPassword() {
+    var password = document.getElementById('txtPassword').value;
+    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z\s]).{8,}$/;
+    var passwordField = $("#txtPassword");
+
+    if (!regex.test(password)) {
+        var errorMessage = 'La contraseña debe contener al menos una letra minúscula, un número, una letra mayúscula, un carácter especial, no debe contener espacios y tener un mínimo de 8 caracteres.';
+        var errorElementSet = $('#password-error');
         errorElementSet.text(errorMessage);
-        input.value = "";
-        $("#txtEmail").css('border', '2px solid #a94442');
+        passwordField.val(""); // Limpiar el campo de contraseña
+        passwordField.css('border', '2px solid #a94442');
     } else {
-        var errorElementSet = $('#Email-error');
-        errorElementSet.text('');
-        $("#txtEmail").css('border', '');
+        document.getElementById('password-error').textContent = '';
+        passwordField.removeClass('input-validation-error'); // Eliminar la clase de error de validación
+        passwordField.css('border', ''); // Eliminar estilo de borde personalizado
     }
 }
+
+// Escuchar el evento 'blur' en el campo de contraseña
+document.getElementById('txtPassword').addEventListener('blur', validarPassword);
+
+// Escuchar el evento 'input' en el campo de contraseña
+document.getElementById('txtPassword').addEventListener('input', function () {
+    document.getElementById('password-error').textContent = '';
+});
+
+// Prevenir pegar la contraseña en el campo
+document.getElementById('txtPassword').addEventListener('paste', function (e) {
+    e.preventDefault();
+});
+
+
+
+// Validar UserName al perder el foco
+function validarUserName() {
+    var userName = document.getElementById('UserName').value;
+    var regex = /^[A-Za-z0-9]+$/;
+
+    if (!regex.test(userName)) {
+        var errorMessage = 'El UserName solo puede contener letras y números.';
+        document.getElementById('UserName-error').textContent = errorMessage;
+        $("#UserName").addClass('input-validation-error'); // Agregar la clase de error de validación
+        $("#UserName").css('border', '2px solid #a94442'); // Aplicar estilo de borde rojo
+    } else {
+        document.getElementById('UserName-error').textContent = '';
+        $("#UserName").removeClass('input-validation-error'); // Eliminar la clase de error de validación
+        $("#UserName").css('border', ''); // Eliminar estilo de borde personalizado
+    }
+}
+
+// Escuchar el evento 'blur' en el campo de UserName
+document.getElementById('UserName').addEventListener('blur', validarUserName);
+
+// Escuchar el evento 'input' en el campo de UserName
+document.getElementById('UserName').addEventListener('input', function () {
+    document.getElementById('UserName-error').textContent = '';
+});
+
+//// Prevenir pegar caracteres especiales o espacios en el campo de UserName
+document.getElementById('UserName').addEventListener('input', function (e) {
+    var inputValue = e.target.value;
+    e.target.value = inputValue.replace(/[^A-Za-z0-9]/g, '');
+});
+
+
+
+
+
+var txtPassword = document.getElementById("txtPassword");
+var txtConfirmarPassword = document.getElementById("txtConfirmarPassword");
+
+function validarContraseña() {
+    var errorMessage = 'Las contraseñas no coinciden.';
+    var errorElementSet = $('#ConfirmarPassword-error');
+    if (txtPassword.value !== txtConfirmarPassword.value) {
+        errorElementSet.text(errorMessage);
+        $("#txtConfirmarPassword").css('border', '2px solid #a94442');
+    } else {
+        errorElementSet.text('');
+        $("#txtConfirmarPassword").css('border', '');
+    }
+}
+
+txtConfirmarPassword.addEventListener("input", validarContraseña);

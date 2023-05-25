@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+  
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -28,34 +32,62 @@
         <div class="row">
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Nombre)
-                @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control", @id="txtNombre", oninput = "validarInput(this)" })
-                @Html.ValidationMessageFor(model => Model.Nombre, null, new { @class = "text-danger", @id= "Nombre-error" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control", @id = "txtNombre", oninput = "validarInput(this)" })
+                </div>
+                @Html.ValidationMessageFor(model => Model.Nombre, null, new { @class = "text-danger", @id = "Nombre-error" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.ApellidoPaterno)
-                @Html.TextBoxFor(model => Model.ApellidoPaterno, new { @class = "form-control", @id = "txtApellidoPaterno", oninput = "validarInput(this)" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    @Html.TextBoxFor(model => Model.ApellidoPaterno, new { @class = "form-control", @id = "txtApellidoPaterno", oninput = "validarInput(this)" })
+                </div>
                 @Html.ValidationMessageFor(model => Model.ApellidoPaterno, null, new { @class = "text-danger", @id = "ApellidoPaterno-error" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.ApellidoMaterno)
-                @Html.TextBoxFor(model => Model.ApellidoMaterno, new { @class = "form-control", @id = "txtApellidoMaterno", oninput = "validarInput(this)" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    @Html.TextBoxFor(model => Model.ApellidoMaterno, new { @class = "form-control", @id = "txtApellidoMaterno", oninput = "validarInput(this)" })
+                </div>
                 @Html.ValidationMessageFor(model => Model.ApellidoMaterno, null, new { @class = "text-danger", @id = "ApellidoMaterno-error" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.UserName)
-                @Html.TextBoxFor(model => Model.UserName, new { @class = "form-control" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    @Html.TextBoxFor(model => Model.UserName, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(model => Model.UserName, null, new { @class = "text-danger", @id = "UserName-error" })
             </div>
+
         </div>
         <br />
         <div class="row">
             <div class="col-md-3">
-                @Html.LabelFor(model => Model.Email)
-                @Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @id = "txtEmail",onblur = "validarEmail(this)" })
+                @Html.LabelFor(model => Model.Email)<div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                    @Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @id = "txtEmail", onblur = "validarEmail(this)" })
+                </div>
                 @Html.ValidationMessageFor(model => Model.CURP, null, new { @class = "text-danger", @id = "Email-error" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Password)
-                @Html.TextBoxFor(model => Model.Password, new { @class = "form-control" })
+                <div class="input-group">
+                    @Html.TextBoxFor(model => Model.Password, new { @class = "form-control", @id = "txtPassword", type = "password" })
+                    <span class="input-group-addon"><span id="togglePassword" class="glyphicon glyphicon-eye-open" onclick="togglePasswordVisibility()"></span></span>
+                </div>
+                @Html.ValidationMessageFor(model => Model.Password, "", new { @class = "text-danger", @id = "password-error" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => Model.ConfirmarPassword)
+                <div class="input-group">
+                    <span class="input-group-addon"><span id="togglePassword" class="glyphicon glyphicon-eye-open"></span></span>
+                    @Html.TextBoxFor(model => Model.ConfirmarPassword, new { @class = "form-control", @id = "txtConfirmarPassword", type = "password" })
+                </div>
+                @Html.ValidationMessageFor(model => Model.ConfirmarPassword, "", new { @class = "text-danger", @id = "ConfirmarPassword-error" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Sexo)
@@ -63,35 +95,46 @@
                 @Html.RadioButtonFor(model => Model.Sexo, "H") Hombre
                 @Html.RadioButtonFor(model => Model.Sexo, "M") Mujer
             </div>
-            <div class="col-md-3">
-                @Html.LabelFor(model => Model.Telefono)
-                @Html.TextBoxFor(model => Model.Telefono, new { @class = "form-control", @id = "txtTelefono", oninput = "validarNumero(this)" })
-                @Html.ValidationMessageFor(model => Model.Telefono, null, new { @class = "text-danger", @id = "Telefono-error" })
-            </div>
+
         </div>
         <br />
         <div class="row">
             <div class="col-md-3">
+                @Html.LabelFor(model => Model.Telefono)
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span></span>
+                    @Html.TextBoxFor(model => Model.Telefono, new { @class = "form-control", @id = "txtTelefono", oninput = "validarNumero(this)" })
+                </div>
+                @Html.ValidationMessageFor(model => Model.Telefono, null, new { @class = "text-danger", @id = "Telefono-error" })
+            </div>
+            <div class="col-md-3">
                 @Html.LabelFor(model => Model.Celular)
-                @Html.TextBoxFor(model => Model.Celular, new { @class = "form-control", @id = "txtCelular", oninput = "validarNumero(this)" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                    @Html.TextBoxFor(model => Model.Celular, new { @class = "form-control", @id = "txtCelular", oninput = "validarNumero(this)" })
+                </div>
                 @Html.ValidationMessageFor(model => Model.Celular, null, new { @class = "text-danger", @id = "Celular-error" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.CURP)
-                @Html.TextBoxFor(model => Model.CURP, new { @class = "form-control curp-input", @id = "txtCURP"})
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                    @Html.TextBoxFor(model => Model.CURP, new { @class = "form-control curp-input", @id = "txtCURP" })
+                </div>
                 @Html.ValidationMessageFor(model => Model.CURP, null, new { @class = "text-danger", @id = "CURP-error" })
             </div>
             <div class="col-md-3 form-inline">
                 @Html.LabelFor(model => Model.FechaNacimiento)
                 @Html.TextBoxFor(model => Model.FechaNacimiento, new { @class = "form-control", @id = "txtFechaNacimiento" })
             </div>
+        </div>
+        <br />
+        <div class="row">
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Rol.Nombre)
                 @Html.DropDownListFor(model => Model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Selecciona un Rol", new { @class = "form-control" })
                 <br />
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Direccion.Colonia.Municipio.Estado.Pais.Nombre)
                 @Html.DropDownListFor(model => Model.Direccion.Colonia.Municipio.Estado.Pais.IdPais, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Pais.Paises, "IdPais", "Nombre"), "Selecciona un Pais", new { @id = "ddlPais", @class = "form-control" })
@@ -120,6 +163,8 @@
                 }
                 <br />
             </div>
+        </div>
+        <div class="row">
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Direccion.Colonia.Nombre)
                 @if (Model.Direccion.Colonia.Colonias != null)
@@ -132,26 +177,37 @@
                 }
                 <br />
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Direccion.Calle)
-                @Html.TextBoxFor(model => Model.Direccion.Calle, new { @class = "form-control" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></span>
+                    @Html.TextBoxFor(model => Model.Direccion.Calle, new { @class = "form-control" })
+                </div>
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Direccion.NumeroInterior)
-                @Html.TextBoxFor(model => Model.Direccion.NumeroInterior, new { @class = "form-control" })
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
+                    @Html.TextBoxFor(model => Model.Direccion.NumeroInterior, new { @class = "form-control" })
+                </div>
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => Model.Direccion.NumeroExterior)
-                @Html.TextBoxFor(model => Model.Direccion.NumeroExterior, new { @class = "form-control" })
-                <br />
-            </div>
-            <div class="col-md-3">
-                @Html.LabelFor(model => Model.Imagen)
-                <input type="file" accept="image/*" id="FuImgUsuario" onchange="PreviewImg(event);" name="ImgUsuario" />
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-signal"></span></span>
+                    @Html.TextBoxFor(model => Model.Direccion.NumeroExterior, new { @class = "form-control" })
+                </div>
                 <br />
 
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => Model.Imagen)
+                <input type="file" accept=".jpg, .jpeg, .png" id="FuImgUsuario" onchange="validarArchivo(event)" name="ImgUsuario" />
+                @Html.ValidationMessageFor(model => Model.Imagen, null, new { @class = "text-danger", @id = "Imagen-error" })
+                <br />
+                <br />
                 @if (Model.Imagen != null)
                 {
                     @Html.HiddenFor(model => Model.Imagen)
@@ -163,6 +219,15 @@
                 }
             </div>
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <div class="row">
             <br />
             <div class="col-md-1">
@@ -174,16 +239,34 @@
             </div>
         </div>
 
-    }
-</div>
+        }
+    </div>
 
-<script src="~/Scripts/jquery-3.4.1.js"></script>
-<script src="~/Scripts/Usuario/Form/Direccion/GetEstado.js"></script>
-<script src="~/Scripts/Usuario/Form/Direccion/GetMunicipio.js"></script>
-<script src="~/Scripts/Usuario/Form/Direccion/GetColonia.js"></script>
-<script src="~/Scripts/Imagen/PreviewImage.js"></script>
-<script src="~/Scripts/jquery.min.js" type="text/javascript"></script>
-<script src="~/Scripts/jquery-ui.min.js" type="text/javascript"></script>
-<link href="~/Content/jquery-ui.css" rel="Stylesheet" type="text/css" />
-<script src="~/Scripts/Usuario/Form/datepicker.js"></script>
-<script src="~/Scripts/Usuario/Form/ValidacionesFormUsuario.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Usuario/Form/Direccion/GetEstado.js"></script>
+    <script src="~/Scripts/Usuario/Form/Direccion/GetMunicipio.js"></script>
+    <script src="~/Scripts/Usuario/Form/Direccion/GetColonia.js"></script>
+    <script src="~/Scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="~/Content/jquery-ui.css" rel="Stylesheet" type="text/css" />
+    <script src="~/Scripts/Usuario/Form/datepicker.js"></script>
+    <script src="~/Scripts/Usuario/Form/ValidacionesFormUsuario.js"></script>
+    <script src="~/Scripts/Imagen/PreviewImage.js"></script>
+
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("txtPassword");
+            var toggleIcon = document.getElementById("togglePassword");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove("glyphicon-eye-open");
+                toggleIcon.classList.add("glyphicon-eye-close");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove("glyphicon-eye-close");
+                toggleIcon.classList.add("glyphicon-eye-open");
+            }
+        }
+    </script>

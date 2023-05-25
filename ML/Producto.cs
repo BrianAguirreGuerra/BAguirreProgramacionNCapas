@@ -19,9 +19,13 @@ namespace ML
         public string Nombre { get; set; }
 
         [Display(Name = "Precio Unitario")]
+        [Required(ErrorMessage = "El campo Precio Unitario es obligatorio.")]
+        [Range(0, double.MaxValue, ErrorMessage = "El campo Precio Unitario debe ser un valor numérico válido.")]
         public decimal PrecioUnitario { get; set; }
 
         [Display(Name = "Stock")]
+        [Required(ErrorMessage = "El campo Stock es obligatorio.")]
+        [Range(0, int.MaxValue, ErrorMessage = "El campo Stock debe ser un valor numérico válido.")]
         public int Stock { get; set; }
         public ML.Proveedor  Proveedor { get; set; }
         public ML.Departamento Departamento { get; set; }
