@@ -43,7 +43,19 @@
     }
 }
 
-
+function validarEmail(input) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+        var errorMessage = 'Por favor, ingrese una dirección de correo electrónico válida.';
+        var errorElementSet = $('#Email-error');
+        errorElementSet.text(errorMessage);
+        input.value = "";
+        $("#txtEmail").css('border', '2px solid #a94442');
+    } else {
+        var errorElementSet = $('#Email-error');
+        errorElementSet.text('');
+        $("#txtEmail").css('border', '');
+    }
+}
 
 function validarNumero(input) {
     var valor = input.value;
