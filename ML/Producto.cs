@@ -31,6 +31,7 @@ namespace ML
         public ML.Departamento Departamento { get; set; }
 
         [Display(Name = "Descripción")]
+        [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
         public string Descripcion { get; set; }
 
         [Display(Name = "Imagen del Producto")]

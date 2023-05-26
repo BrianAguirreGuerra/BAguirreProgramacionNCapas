@@ -56,6 +56,7 @@
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Proveedor.Nombre)
                 @Html.DropDownListFor(model => Model.Proveedor.IdProveedor, new SelectList(Model.Proveedor.Proveedores, "IdProveedor", "Nombre"), "Selecciona un proveedor", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Proveedor.IdProveedor, "", new { @class = "text-danger" })
                 <br />
             </div>
         </div>
@@ -63,7 +64,7 @@
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Departamento.Area.Nombre)
                 @Html.DropDownListFor(model => Model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una Area", new { @id = "ddlArea", @class = "form-control" })
-
+                @Html.ValidationMessageFor(model => model.Departamento.Area.IdArea, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Departamento.Nombre)
@@ -75,10 +76,12 @@
                 {
                     @Html.DropDownListFor(model => Model.Departamento.IdDepartamento, new SelectList(string.Empty, "IdDepartamento", "Nombre"), "Selecciona un Departamento", htmlAttributes: new { @class = "form-control", @id = "ddlDepartamento" })
                 }
+                @Html.ValidationMessageFor(model => model.Departamento.IdDepartamento, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Descripcion)
                 @Html.TextAreaFor(model => Model.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                 <br />
             </div>
             <div class="col-md-3">
@@ -90,7 +93,7 @@
                 @if (Model.Imagen != null)
                 {
                     @Html.HiddenFor(model => Model.Imagen)
-                    <img src="data:image/jpg;base64, @Convert.ToBase64String(Model.Imagen)" style="width: 200px; height: 200px; position: absolute; top: 80%; left: 20%;" />
+                    <img id="Img" src="data:image/jpg;base64, @Convert.ToBase64String(Model.Imagen)" style="width: 200px; height: 200px; position: absolute; top: 80%; left: 20%;" />
                 }
                 else
                 {

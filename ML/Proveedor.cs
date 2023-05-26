@@ -9,6 +9,8 @@ namespace ML
 {
     public class Proveedor
     {
+
+        [Required(ErrorMessage = "El campo Proveedor es obligatorio.")]
         public int IdProveedor { get; set; }
         public string Telefono { get; set; }
 

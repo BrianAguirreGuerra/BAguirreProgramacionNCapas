@@ -10,6 +10,7 @@ namespace ML
 {
     public class Departamento
     {
+        [Required(ErrorMessage = "El campo Departamento es obligatorio.")]
         public int IdDepartamento { get; set; }
 
         [Display(Name = "Departamento")]

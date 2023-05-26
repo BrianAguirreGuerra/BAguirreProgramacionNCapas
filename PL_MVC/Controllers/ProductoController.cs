@@ -69,7 +69,11 @@ namespace PL_MVC.Controllers
         [HttpPost] 
         public ActionResult Form(ML.Producto producto, HttpPostedFileBase ImgProducto)
         {
-            producto.Imagen = ConvertToBytes(ImgProducto);
+            if (ImgProducto != null)
+            {
+                producto.Imagen = ConvertToBytes(ImgProducto);
+            }
+
 
             if (ModelState.IsValid)
             {
