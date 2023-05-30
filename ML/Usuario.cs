@@ -35,6 +35,8 @@ namespace ML
         [Display(Name = "Sexo")]
         public char Sexo { get; set; }
 
+        public string SexoNombre { get; set; }
+
         [Display(Name = "Telefono")]
         public string Telefono { get; set; }
 

@@ -1,8 +1,9 @@
 ﻿function UpdateStatus(IdUsuario, estatus) {
     var Estatus = estatus.checked
+    var url = '/Usuario/UpdateStatus';
     $.ajax({
         type: 'POST',
-        url: '@Url.Action("UpdateStatus")',
+        url: url,
         dataType: 'json',
         data: { IdUsuario, Estatus },
         success: function (resultEstatus) {

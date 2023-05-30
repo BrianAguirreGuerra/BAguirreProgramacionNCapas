@@ -577,7 +577,7 @@ namespace BL
                             usuario.IdUsuarioModificado = (obj.IdUsuarioModificado != null) ? obj.IdUsuarioModificado.Value : int.Parse("0");
                             usuario.FechaCreacion = (obj.FechaCreacion != null) ? obj.FechaCreacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
                             usuario.FechaModificacion = (obj.FechaModificacion != null) ? obj.FechaModificacion.Value.ToString("dd/MM/yyyy HH:mm:ss") : "0";
-                            usuario.Estatus = (obj.Estatus != null) ? obj.Estatus.Value : bool.Parse("0");
+                            usuario.Estatus = (obj.Estatus != null) ? obj.Estatus.Value : false;
                             result.Objects.Add(usuario);
                         }
 
@@ -906,7 +906,7 @@ namespace BL
                             usuariolista.UserName= obj.UserName;
                             usuariolista.Email = obj.Email;
                             usuariolista.Password= obj.Password;
-                            usuariolista.Sexo= char.Parse(obj.Sexo);
+                            usuariolista.Sexo= char.Parse(obj.Sexo); //Masculino
                             usuariolista.Telefono= obj.Telefono;
                             usuariolista.Celular= (obj.Celular != null) ? obj.Celular : "0";
                             usuariolista.CURP= (obj.CURP != null) ? obj.CURP : "0";
