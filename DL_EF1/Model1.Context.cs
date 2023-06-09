@@ -277,15 +277,6 @@ namespace DL_EF1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllPais_Result>("GetAllPais");
         }
     
-        public virtual ObjectResult<UsuarioGetById_Result> UsuarioGetById(Nullable<int> idUsuario)
-        {
-            var idUsuarioParameter = idUsuario.HasValue ?
-                new ObjectParameter("IdUsuario", idUsuario) :
-                new ObjectParameter("IdUsuario", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetById_Result>("UsuarioGetById", idUsuarioParameter);
-        }
-    
         public virtual int DireccionUpdate(string calle, string numeroInterior, string numeroExterior, Nullable<int> idColonia, Nullable<int> idUsuario)
         {
             var calleParameter = calle != null ?
@@ -388,6 +379,15 @@ namespace DL_EF1
         public virtual ObjectResult<UsuarioGetAll_Result> UsuarioGetAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetAll_Result>("UsuarioGetAll");
+        }
+    
+        public virtual ObjectResult<UsuarioGetById_Result> UsuarioGetById(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetById_Result>("UsuarioGetById", idUsuarioParameter);
         }
     }
 }

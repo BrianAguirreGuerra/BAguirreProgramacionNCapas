@@ -21,6 +21,7 @@ namespace DL_EF1
         public string Email { get; set; }
         public string Pass { get; set; }
         public string Sexo { get; set; }
+        public string SexoNombre { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
         public string CURP { get; set; }

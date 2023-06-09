@@ -11,6 +11,7 @@ namespace ML
     {
         [Required(ErrorMessage = "El campo Area es obligatorio.")]
         public int IdArea { get; set; }
+        [Display(Name = "Area")]
         public string Nombre { get; set; }
         public List<object> Areas { get; set; }
 

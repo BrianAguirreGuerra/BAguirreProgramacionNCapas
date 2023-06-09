@@ -565,6 +565,7 @@ namespace BL
                             usuario.Password = obj.Pass;
                             string sexo = obj.Sexo;
                             usuario.Sexo = char.Parse(sexo.Replace(" ",""));
+                            usuario.SexoNombre = obj.SexoNombre;
                             usuario.Telefono = obj.Telefono;
                             usuario.Celular = (obj.Celular != null) ? obj.Celular : "0";
                             usuario.CURP = (obj.CURP != null) ? obj.CURP : "0";

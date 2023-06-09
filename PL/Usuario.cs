@@ -125,7 +125,7 @@ namespace PL
             usuario.Password = Console.ReadLine();
 
             Console.WriteLine("Introduce tu sexo:");
-            usuario.Sexo = Console.ReadLine();
+            //usuario.Sexo = Console.ReadLine();
 
             Console.WriteLine("Introduce número de telefono:");
             usuario.Telefono = Console.ReadLine();
@@ -180,7 +180,7 @@ namespace PL
             usuario.Password = Console.ReadLine();
 
             Console.WriteLine("Introduce nuevo sexo:");
-            usuario.Sexo = Console.ReadLine();
+           // usuario.Sexo = Console.ReadLine();
 
             Console.WriteLine("Introduce nuevo número de telefono:");
             usuario.Telefono = Console.ReadLine();
@@ -251,7 +251,7 @@ namespace PL
             usuario.Password = Console.ReadLine();
 
             Console.WriteLine("Introduce tu sexo:");
-            usuario.Sexo = Console.ReadLine();
+           // usuario.Sexo = Console.ReadLine();
 
             Console.WriteLine("Introduce número de telefono:");
             usuario.Telefono = Console.ReadLine();
@@ -309,7 +309,7 @@ namespace PL
             usuario.Password = Console.ReadLine();
 
             Console.WriteLine("Introduce tu sexo:");
-            usuario.Sexo = Console.ReadLine();
+            //usuario.Sexo = Console.ReadLine();
 
             Console.WriteLine("Introduce nuevo número de telefono:");
             usuario.Telefono = Console.ReadLine();
@@ -454,7 +454,7 @@ namespace PL
             usuario.Password = Console.ReadLine();
 
             Console.WriteLine("Introduce tu sexo:");
-            usuario.Sexo = Console.ReadLine();
+            //usuario.Sexo = Console.ReadLine();
 
             Console.WriteLine("Introduce número de telefono:");
             usuario.Telefono = Console.ReadLine();
@@ -512,7 +512,7 @@ namespace PL
             usuario.Password = Console.ReadLine();
 
             Console.WriteLine("Introduce tu sexo:");
-            usuario.Sexo = Console.ReadLine();
+            //usuario.Sexo = Console.ReadLine();
 
             Console.WriteLine("Introduce nuevo número de telefono:");
             usuario.Telefono = Console.ReadLine();
@@ -657,7 +657,7 @@ namespace PL
             usuario.Password = Console.ReadLine();
 
             Console.WriteLine("Introduce tu sexo:");
-            usuario.Sexo = Console.ReadLine();
+            //usuario.Sexo = Console.ReadLine();
 
             Console.WriteLine("Introduce número de telefono:");
             usuario.Telefono = Console.ReadLine();
@@ -715,7 +715,7 @@ namespace PL
             usuario.Password = Console.ReadLine();
 
             Console.WriteLine("Introduce tu sexo:");
-            usuario.Sexo = Console.ReadLine();
+            //usuario.Sexo = Console.ReadLine();
 
             Console.WriteLine("Introduce nuevo número de telefono:");
             usuario.Telefono = Console.ReadLine();
