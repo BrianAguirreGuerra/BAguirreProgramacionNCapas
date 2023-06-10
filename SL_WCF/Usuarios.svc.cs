@@ -8,13 +8,13 @@ using System.Text;
 
 namespace SL_WCF
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Productos" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Productos.svc or Productos.svc.cs at the Solution Explorer and start debugging.
-    public class Productos : IProductos
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Usuarios" in code, svc and config file together.
+    // NOTE: In order to launch WCF Test Client for testing this service, please select Usuarios.svc or Usuarios.svc.cs at the Solution Explorer and start debugging.
+    public class Usuarios : IUsuarios
     {
-        public SL_WCF.Result Add(ML.Producto producto)
+        public Result Add(Usuario usuario)
         {
-            ML.Result result = BL.Producto.AddEF(producto);
+            ML.Result result = BL.Usuario.AddEF(usuario);
             return new SL_WCF.Result
             {
                 Correct = result.Correct,
@@ -25,9 +25,9 @@ namespace SL_WCF
             };
         }
 
-        public Result Delete(int producto)
+        public Result Delete(int usuario)
         {
-            ML.Result result = BL.Producto.DeleteEF(producto);
+            ML.Result result = BL.Usuario.DeleteEF(usuario);
             return new SL_WCF.Result
             {
                 Correct = result.Correct,
@@ -40,7 +40,7 @@ namespace SL_WCF
 
         public Result GetAll()
         {
-            ML.Result result = BL.Producto.GetAllEF();
+            ML.Result result = BL.Usuario.GetAllEF();
             return new SL_WCF.Result
             {
                 Correct = result.Correct,
@@ -51,9 +51,9 @@ namespace SL_WCF
             };
         }
 
-        public Result GetById(int IdProducto)
+        public Result GetById(int IdUsuario)
         {
-            ML.Result result = BL.Producto.GetByIdEF(IdProducto);
+            ML.Result result = BL.Usuario.GetByIdEF(IdUsuario);
             return new SL_WCF.Result
             {
                 Correct = result.Correct,
@@ -64,9 +64,9 @@ namespace SL_WCF
             };
         }
 
-        public Result Update(ML.Producto producto)
+        public Result Update(Usuario usuario)
         {
-            ML.Result result = BL.Producto.UpdateEF(producto);
+            ML.Result result = BL.Usuario.UpdateEF(usuario);
             return new SL_WCF.Result
             {
                 Correct = result.Correct,
@@ -76,6 +76,5 @@ namespace SL_WCF
                 Ex = result.Ex
             };
         }
-
     }
 }

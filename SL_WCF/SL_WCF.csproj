@@ -72,9 +72,11 @@
   <ItemGroup>
     <Content Include="Operaciones.svc" />
     <Content Include="Productos.svc" />
+    <Content Include="Usuarios.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUsuarios.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="IOperaciones.cs" />
     <Compile Include="IProductos.cs" />
@@ -85,6 +87,9 @@
       <DependentUpon>Productos.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuarios.svc.cs">
+      <DependentUpon>Usuarios.svc</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

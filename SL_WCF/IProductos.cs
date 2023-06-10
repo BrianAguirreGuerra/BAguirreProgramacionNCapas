@@ -16,5 +16,16 @@ namespace SL_WCF
 
         [OperationContract]
         SL_WCF.Result Delete(int producto);
+
+        [OperationContract]
+        SL_WCF.Result Update(ML.Producto producto);
+
+        [OperationContract]
+        [ServiceKnownType(typeof(ML.Producto))]
+        SL_WCF.Result GetAll();
+
+        [OperationContract]
+        [ServiceKnownType(typeof(ML.Producto))]
+        SL_WCF.Result GetById(int IdProducto);
     }
 }

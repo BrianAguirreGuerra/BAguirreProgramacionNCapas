@@ -3,7 +3,7 @@ function validarArchivo(event) {
     var archivoInput = event.target;
     var archivo = archivoInput.files[0];
     var formatoValido = /\.(jpg|jpeg|png)$/i.test(archivo.name);
-    var tamañoValido = archivo.size <= 60 * 1024; // 65 KB en bytes
+    var tamañoValido = archivo.size <= 100 * 1024; // 65 KB en bytes
 
     if (!formatoValido) {
         var errorMessage = 'Solo se admiten archivos con formato .jpg, .png o .jpeg';

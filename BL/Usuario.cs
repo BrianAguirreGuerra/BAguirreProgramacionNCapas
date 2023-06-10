@@ -468,7 +468,7 @@ namespace BL
             }
             return result;
         }
-        public static Result DeleteEF(ML.Usuario usuario)
+        public static Result DeleteEF(int IdUsuario)
         {
             Result result = new Result();
 
@@ -477,7 +477,7 @@ namespace BL
                 using (DL_EF1.BAguirreProgramacionNCapasEntities context = new DL_EF1.BAguirreProgramacionNCapasEntities())
                 {
 
-                    var query = context.UsuarioDelete(usuario.IdUsuario);
+                    var query = context.UsuarioDelete(IdUsuario);
                     if (query >= 1)
                     {
                         result.Correct = true;
@@ -621,7 +621,7 @@ namespace BL
                             usuario.UserName = usuarios1.UserName;
                             usuario.Email = usuarios1.Email;
                             usuario.Password = usuarios1.Pass;
-                            usuario.Sexo = char.Parse(usuarios1.Sexo);
+                            //usuario.Sexo = char.Parse(usuarios1.Sexo);
                             usuario.Telefono = usuarios1.Telefono;
                             usuario.Celular = usuarios1.Celular;
                             usuario.CURP = usuarios1.CURP;
@@ -629,7 +629,7 @@ namespace BL
                             usuario.Imagen = usuarios1.Imagen;
                             usuario.Rol = new ML.Rol();
                             usuario.Rol.IdRol = (byte)usuarios1.IdRol;
-                            usuario.IdUsuarioModificado = (int)usuarios1.IdUsuarioModificado;
+                            //usuario.IdUsuarioModificado = (int)usuarios1.IdUsuarioModificado;
                             usuario.FechaCreacion = usuarios1.FechaCreacion.ToString();
                             usuario.FechaModificacion = usuarios1.FechaModificacion.ToString();
                             result.Object = usuario;

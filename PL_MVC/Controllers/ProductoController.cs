@@ -79,7 +79,11 @@ namespace PL_MVC.Controllers
             {
                 if (producto.IdProducto == 0) //add
                 {
-                    ML.Result result = BL.Producto.AddLinq(producto);
+                    //ML.Result result = BL.Producto.AddLinq(producto);
+                    //producto.Imagen = null;
+                    ServiceProductos.ProductosClient productosClient = new ServiceProductos.ProductosClient();
+                    var result = productosClient.Add(producto);
+
 
                     if (result.Correct)
                     {
@@ -93,7 +97,11 @@ namespace PL_MVC.Controllers
                 }
                 else //update
                 {
-                    ML.Result result = BL.Producto.UpdateLinq(producto);
+                    //producto.Imagen = null;
+                    ServiceProductos.ProductosClient productosClient = new ServiceProductos.ProductosClient();
+                    var result = productosClient.Update(producto);
+
+                    //ML.Result result = BL.Producto.UpdateLinq(producto);
 
                     if (result.Correct)
                     {
@@ -123,7 +131,9 @@ namespace PL_MVC.Controllers
 
         public ActionResult Delete(int IdProducto)
         {
-            ML.Result result = BL.Producto.DeleteLinq(IdProducto);
+            //ML.Result result = BL.Producto.DeleteLinq(IdProducto);
+            ServiceProductos.ProductosClient productosClient = new ServiceProductos.ProductosClient();
+            var result = productosClient.Delete(IdProducto);
             if (result.Correct)
             {
                 ViewBag.Mensaje = "Se ha eliminado correctamente el producto";

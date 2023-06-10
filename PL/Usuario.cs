@@ -549,9 +549,9 @@ namespace PL
             ML.Usuario usuario = new ML.Usuario();
 
             Console.WriteLine("Ingrese ID de registro a eliminar:");
-            usuario.IdUsuario = int.Parse(Console.ReadLine());
+            int IdUsuario = int.Parse(Console.ReadLine());
 
-            ML.Result result = BL.Usuario.DeleteEF(usuario);
+            ML.Result result = BL.Usuario.DeleteEF(IdUsuario);
 
             if (result.Correct)
             {
