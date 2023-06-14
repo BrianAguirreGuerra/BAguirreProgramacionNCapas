@@ -749,7 +749,7 @@ namespace BL
                     usuarioDL.Celular= usuario.Celular;
                     usuarioDL.CURP = usuario.CURP;
                     usuarioDL.IdRol = usuario.Rol.IdRol;
-                    //usuarioDL.IdUsuarioModificado = usuario.IdUsuarioModificado;
+                    usuarioDL.IdUsuarioModificado = usuario.IdUsuarioModificado;
                     DateTime dt = DateTime.ParseExact(usuario.FechaNacimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     usuarioDL.FechaNacimiento = dt;
                     usuarioDL.Imagen = usuario.Imagen;

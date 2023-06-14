@@ -53,7 +53,7 @@ namespace SL_WCF
 
         public Result GetById(int IdProducto)
         {
-            ML.Result result = BL.Producto.GetByIdEF(IdProducto);
+            ML.Result result = BL.Producto.GetByIdLinq(IdProducto);
             return new SL_WCF.Result
             {
                 Correct = result.Correct,

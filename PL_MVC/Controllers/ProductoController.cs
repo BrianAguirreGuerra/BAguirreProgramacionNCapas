@@ -14,10 +14,13 @@ namespace PL_MVC.Controllers
         public ActionResult GetAll()
         {
             ML.Producto producto = new ML.Producto();
-            ML.Result result = BL.Producto.GetAllEF();
+            //ML.Result result = BL.Producto.GetAllEF();
+            ServiceProductos.ProductosClient productosClient = new ServiceProductos.ProductosClient();
+            var result = productosClient.GetAll();
+
             if (result.Correct)
             {
-                producto.Productos = result.Objects;
+                producto.Productos = result.Objects.ToList();
             }
             else
             {
@@ -47,7 +50,9 @@ namespace PL_MVC.Controllers
             else // update
             {
                 //Get By Id
-                ML.Result result = BL.Producto.GetByIdLinq(IdProducto.Value);
+                //ML.Result resultA = new ML.Result();
+                ServiceProductos.ProductosClient productosClient = new ServiceProductos.ProductosClient();
+                var result = productosClient.GetById(IdProducto.Value);
 
                 //unboxing
                 producto.IdProducto = ((ML.Producto)result.Object).IdProducto;
@@ -59,8 +64,11 @@ namespace PL_MVC.Controllers
                 int IdArea = producto.Departamento.Area.IdArea = ((ML.Producto)result.Object).Departamento.Area.IdArea;
                 producto.Departamento.IdDepartamento = ((ML.Producto)result.Object).Departamento.IdDepartamento;
                 producto.Imagen = ((ML.Producto)result.Object).Imagen;
-                result = BL.Departamento.GetByIdArea(IdArea);
-                producto.Departamento.Departamentos = result.Objects;
+                ML.Result resultDepartamentos = BL.Departamento.GetByIdArea(IdArea);
+                producto.Departamento.Departamentos = resultDepartamentos.Objects;
+                producto.Departamento.IdDepartamento = ((ML.Producto)result.Object).Departamento.IdDepartamento;
+                //result = BL.Departamento.GetByIdArea(IdArea);
+                //producto.Departamento.Departamentos = result.Objects.ToList();
                 return View(producto);
             }
 
